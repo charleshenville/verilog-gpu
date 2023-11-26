@@ -1,0 +1,3 @@
+Info (10281): Verilog HDL Declaration information at gpu.v(115): object "y" differs only in case from object "Y" in the same scope File: C:/Users/zha13148/verilog-gpu/src/gpu.v Line: 115
+Warning (10268): Verilog HDL information at gpu.v(260): always construct contains both blocking and non-blocking assignments File: C:/Users/zha13148/verilog-gpu/src/gpu.v Line: 260
+Info (10281): Verilog HDL Declaration information at gpu.v(239): object "Y" differs only in case from object "y" in the same scope File: C:/Users/zha13148/verilog-gpu/src/gpu.v Line: 239
