@@ -1,12 +1,12 @@
-Fitter Status : Successful - Tue Nov 28 02:23:44 2023
+Fitter Status : Successful - Tue Nov 28 14:52:10 2023
 Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 Revision Name : gpu
 Top-level Entity Name : gpu
 Family : Cyclone V
 Device : 5CSEMA5F31C6
 Timing Models : Final
-Logic utilization (in ALMs) : 260 / 32,070 ( < 1 % )
-Total registers : 94
+Logic utilization (in ALMs) : 1,023 / 32,070 ( 3 % )
+Total registers : 78
 Total pins : 44 / 457 ( 10 % )
 Total virtual pins : 0
 Total block memory bits : 230,400 / 4,065,280 ( 6 % )

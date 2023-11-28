@@ -106,26 +106,28 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     reg [47:0] v10;
     reg [47:0] v11;
 	 
-//	 reg [47:0] y0;
-//    reg [47:0] y1;
-//    reg [47:0] y2;
-//    reg [47:0] y3;
-//    reg [47:0] y4;
-//    reg [47:0] y5;
-//    reg [47:0] y6;
-//    reg [47:0] y7;
-//    reg [47:0] y8;
-//    reg [47:0] y9;
-//    reg [47:0] y10;
-//    reg [47:0] y11;
+	 wire [47:0] u0;
+    wire [47:0] u1;
+    wire [47:0] u2;
+    wire [47:0] u3;
+    wire [47:0] u4;
+    wire [47:0] u5;
+    wire [47:0] u6;
+    wire [47:0] u7;
+    wire [47:0] u8;
+    wire [47:0] u9;
+    wire [47:0] u10;
+    wire [47:0] u11;
 
     reg [10:0] currentStartX, currentStartY, currentEndX, currentEndY;
     reg activate;
+	 reg enableSingleRotation;
 
     shapeTypeLUT s0(shapeselect, w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, numVerticies);
     connectVerticies c0(activate, clock, resetn, currentStartX, currentStartY, currentEndX, currentEndY, drawX, drawY, DC);
-
-    reg [5:0] y, Y;
+	 incrementalRotation i0(enableSingleRotation, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, u0, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11);
+    
+	 reg [5:0] y, Y;
     reg [5:0] lastConnectState;
 
     reg doneDrawingShape;
@@ -136,7 +138,7 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
         1: begin // OCTAHEDRON
 				case(y)
                 0: begin
-						  Y <= 10;
+						  Y <= 14;
                     lastConnectState <= y;
                     currentStartX <= (v0[47:32] >> 3) + 160;
                     currentStartY <= (v0[31:16] >> 3) + 120;
@@ -147,17 +149,13 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
                 1: begin
 						  Y <= 14;
                     lastConnectState <= y;
-						  currentStartX <= (v0[47:32] >> 3) + 160;
-                    currentStartY <= (v0[31:16] >> 3) + 120;
-                    currentEndX <= ((v5[47:32] >> 3) + 160);
-                    currentEndY <= ((v5[31:16] >> 3) + 120);
+                    currentEndX <= (v5[47:32] >> 3 + 160);
+                    currentEndY <= (v5[31:16] >> 3 + 120);
                 end
 
                 2: begin
 						  Y <= 14;
                     lastConnectState <= y;
-						  currentStartX <= (v0[47:32] >> 3) + 160;
-                    currentStartY <= (v0[31:16] >> 3) + 120;
                     currentEndX <= (v2[47:32] >> 3) + 160;
                     currentEndY <= (v2[31:16] >> 3) + 120;
                 end
@@ -165,8 +163,6 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
                 3: begin
 						  Y <= 14;
                     lastConnectState <= y;
-                    currentStartX <= (v0[47:32] >> 3) + 160;
-                    currentStartY <= (v0[31:16] >> 3) + 120;
                     currentEndX <= (v4[47:32] >> 3) + 160;
                     currentEndY <= (v4[31:16] >> 3) + 120;
                 end
@@ -183,8 +179,6 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
                 5: begin
 						  Y <= 14;
                     lastConnectState <= y;
-						  currentStartX <= (v1[47:32] >> 3) + 160;
-                    currentStartY <= (v1[31:16] >> 3) + 120;
                     currentEndX <= ((v5[47:32] >> 3) + 160);
                     currentEndY <= ((v5[31:16] >> 3) + 120);
                 end
@@ -192,8 +186,6 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
                 6: begin
 						  Y <= 14;
                     lastConnectState <= y;
-						  currentStartX <= (v1[47:32] >> 3) + 160;
-                    currentStartY <= (v1[31:16] >> 3) + 120;
                     currentEndX <= (v2[47:32] >> 3) + 160;
                     currentEndY <= (v2[31:16] >> 3) + 120;
                 end
@@ -201,8 +193,6 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
                 7: begin
 						  Y <= 14;
                     lastConnectState <= y;
-                    currentStartX <= (v1[47:32] >> 3) + 160;
-                    currentStartY <= (v1[31:16] >> 3) + 120;
                     currentEndX <= (v4[47:32] >> 3) + 160;
                     currentEndY <= (v4[31:16] >> 3) + 120;
                 end
@@ -211,30 +201,22 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
                     lastConnectState <= y;
                     currentStartX <= (v3[47:32] >> 3) + 160;
                     currentStartY <= (v3[31:16] >> 3) + 120;
-                    currentEndX <= (v4[47:32] >> 3) + 160;
-                    currentEndY <= (v4[31:16] >> 3) + 120;
                 end
 					 9: begin
 						  Y <= 14;
                     lastConnectState <= y;
-                    currentStartX <= (v3[47:32] >> 3) + 160;
-                    currentStartY <= (v3[31:16] >> 3) + 120;
                     currentEndX <= (v5[47:32] >> 3) + 160;
-                    currentEndY <= (v5[31:16] >> 3) + 120;
+                    currentEndY <= 	(v5[31:16] >> 3) + 120;
                 end
 					 10: begin
 						  Y <= 14;
                     lastConnectState <= y;
                     currentStartX <= (v2[47:32] >> 3) + 160;
                     currentStartY <= (v2[31:16] >> 3) + 120;
-                    currentEndX <= (v5[47:32] >> 3) + 160;
-                    currentEndY <= (v5[31:16] >> 3) + 120;
                 end
 					 11: begin
 						  Y <= 14;
                     lastConnectState <= y;
-                    currentStartX <= (v2[47:32] >> 3) + 160;
-                    currentStartY <= (v2[31:16] >> 3) + 120;
                     currentEndX <= (v4[47:32] >> 3) + 160;
                     currentEndY <= (v4[31:16] >> 3) + 120;
                 end
@@ -324,7 +306,7 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
                     currentEndY <= (v3[31:16] >> 3) + 120;
                 end
                 6: begin
-                    Y <= 6;
+                    Y <= 28; // OR 6 for static.
                     WE <= 0;
                 end
                 7: begin
@@ -337,42 +319,139 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
 						  activate <= 1;
 						  WE <= 1;
 					 end
+					 28: begin
+						Y <= 29;
+						enableSingleRotation <= 1;
+						v0 <= u0;
+						v1 <= u1;
+						v2 <= u2;
+						v3 <= u3;
+						v4 <= u4;
+						v5 <= u5;
+						v6 <= u6;
+						v7 <= u7;
+						v8 <= u8;
+						v9 <= u9;
+						v10 <= u10;
+						v11 <= u11;
+					 end
+					 29: begin
+						Y <= 30;
+					 end
+					 30: begin
+						Y <= 0;
+						enableSingleRotation <= 0;
+						
+					 end
 					 31: begin
 						  Y <= 0;
                     activate <= 0;
 						  currentStartX <= 0;
 						  currentStartY <= 0;
 						  WE <= 0;
+						  enableSingleRotation <= 0;
+						v0 <= w0;
+						v1 <= w1;
+						v2 <= w2;
+						v3 <= w3;
+						v4 <= w4;
+						v5 <= w5;
+						v6 <= w6;
+						v7 <= w7;
+						v8 <= w8;
+						v9 <= w9;
+						v10 <= w10;
+						v11 <= w11;
 					 end
             endcase
             doneDrawingShape <= y == 6;
         end
         endcase
     end
-
+	 wire doNext;
+	 assign doNext = y == 17;
     always @ (posedge clock) begin
         if (~resetn) begin
             y <= 31;
             drawColour <= inputColour;
 
-            v0 <= w0;
-            v1 <= w1;
-            v2 <= w2;
-            v3 <= w3;
-            v4 <= w4;
-            v5 <= w5;
-            v6 <= w6;
-            v7 <= w7;
-            v8 <= w8;
-            v9 <= w9;
-            v10 <= w10;
-            v11 <= w11;
+//            v0 <= w0;
+//            v1 <= w1;
+//            v2 <= w2;
+//            v3 <= w3;
+//            v4 <= w4;
+//            v5 <= w5;
+//            v6 <= w6;
+//            v7 <= w7;
+//            v8 <= w8;
+//            v9 <= w9;
+//            v10 <= w10;
+//            v11 <= w11;
 
         end else y <= Y;
     end
 
 endmodule
 
+module incrementalRotation(
+	 input enable,
+    input [47:0] v0,
+    input [47:0] v1,
+    input [47:0] v2,
+    input [47:0] v3,
+    input [47:0] v4,
+    input [47:0] v5,
+    input [47:0] v6,
+    input [47:0] v7,
+    input [47:0] v8,
+    input [47:0] v9,
+    input [47:0] v10,
+    input [47:0] v11,
+	 output reg [47:0] u0,
+    output reg [47:0] u1,
+    output reg [47:0] u2,
+    output reg [47:0] u3,
+    output reg [47:0] u4,
+    output reg [47:0] u5,
+    output reg [47:0] u6,
+    output reg [47:0] u7,
+    output reg [47:0] u8,
+    output reg [47:0] u9,
+    output reg [47:0] u10,
+    output reg [47:0] u11
+);
+
+always@(*) begin
+	if(enable) begin
+	 u0 <= {(511*v0[47:32] - 10*v0[31:16])>>9,(10*v0[47:32] + 511*v0[31:16] - 5*v0[15:0])>>9,(v0[47:32] + 5*v0[31:16] + 512*v0[15:0])>>9};
+    u1 <= {(511*v1[47:32] - 10*v1[31:16])>>9,(10*v1[47:32] + 511*v1[31:16] - 5*v1[15:0])>>9,(v1[47:32] + 5*v1[31:16] + 512*v1[15:0])>>9};
+    u2 <= {(511*v2[47:32] - 10*v2[31:16])>>9,(10*v2[47:32] + 511*v2[31:16] - 5*v2[15:0])>>9,(v2[47:32] + 5*v2[31:16] + 512*v2[15:0])>>9};
+    u3 <= {(511*v3[47:32] - 10*v3[31:16])>>9,(10*v3[47:32] + 511*v3[31:16] - 5*v3[15:0])>>9,(v3[47:32] + 5*v3[31:16] + 512*v3[15:0])>>9};
+    u4 <= {(511*v4[47:32] - 10*v4[31:16])>>9,(10*v4[47:32] + 511*v4[31:16] - 5*v4[15:0])>>9,(v4[47:32] + 5*v4[31:16] + 512*v4[15:0])>>9};
+    u5 <= {(511*v5[47:32] - 10*v5[31:16])>>9,(10*v5[47:32] + 511*v5[31:16] - 5*v5[15:0])>>9,(v5[47:32] + 5*v5[31:16] + 512*v5[15:0])>>9};
+    u6 <= {(511*v6[47:32] - 10*v6[31:16])>>9,(10*v6[47:32] + 511*v6[31:16] - 5*v6[15:0])>>9,(v6[47:32] + 5*v6[31:16] + 512*v6[15:0])>>9};
+    u7 <= {(511*v7[47:32] - 10*v7[31:16])>>9,(10*v7[47:32] + 511*v7[31:16] - 5*v7[15:0])>>9,(v7[47:32] + 5*v7[31:16] + 512*v7[15:0])>>9};
+    u8 <= {(511*v8[47:32] - 10*v8[31:16])>>9,(10*v8[47:32] + 511*v8[31:16] - 5*v8[15:0])>>9,(v8[47:32] + 5*v8[31:16] + 512*v8[15:0])>>9};
+    u9 <= {(511*v9[47:32] - 10*v9[31:16])>>9,(10*v9[47:32] + 511*v9[31:16] - 5*v9[15:0])>>9,(v9[47:32] + 5*v9[31:16] + 512*v9[15:0])>>9};
+    u10 <= {(511*v10[47:32] - 10*v10[31:16])>>9,(10*v10[47:32] + 511*v10[31:16] - 5*v10[15:0])>>9,(v10[47:32] + 5*v10[31:16] + 512*v10[15:0])>>9};
+    u11 <= {(511*v11[47:32] - 10*v11[31:16])>>9,(10*v11[47:32] + 511*v11[31:16] - 5*v11[15:0])>>9,(v11[47:32] + 5*v11[31:16] + 512*v11[15:0])>>9};
+	end else begin
+	 u0 <= v0;
+	 u1 <= v1;
+	 u2 <= v2;
+	 u3 <= v3;
+	 u4 <= v4;
+	 u5 <= v5;
+	 u6 <= v6;
+	 u7 <= v7;
+	 u8 <= v8;
+	 u9 <= v9;
+	 u10 <= v10;
+    u11 <= v11;
+	end
+end
+
+endmodule
 
 module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, done);
 
@@ -479,96 +558,6 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 		end
 		
 	end
-endmodule
-
-module shapeTypeLUT (
-    input wire [1:0] shapeselect,
-    output reg [47:0] v0,
-    output reg [47:0] v1,
-    output reg [47:0] v2,
-    output reg [47:0] v3,
-    output reg [47:0] v4,
-    output reg [47:0] v5,
-    output reg [47:0] v6,
-    output reg [47:0] v7,
-    output reg [47:0] v8,
-    output reg [47:0] v9,
-    output reg [47:0] v10,
-    output reg [47:0] v11,
-	 output reg [3:0] numVerticies   
-);
-
-always @(*) begin
-    case (shapeselect)
-        1: begin
-            // Assign values for case 1
-				v0 <= {16'h0, 16'h0, 16'h0200}; // 4,6,3,5
-            v1 <= {16'h0, 16'h0, 16'hFE00}; // 6 4 3 5
-            v2 <= {16'h0, 16'h0200, 16'h0}; // 2 5 1 6
-            v3 <= {16'h0, 16'hFE00, 16'h0}; // 2 5 1 6
-            v4 <= {16'h0200, 16'h0, 16'h0}; // 4 1 2 3
-            v5 <= {16'hFE00, 16'h0, 16'h0}; //
-            v6 <= 48'b0;
-            v7 <= 48'b0;
-            v8 <= 48'b0;
-            v9 <= 48'b0;
-            v10 <= 48'b0;
-            v11 <= 48'b0;
-				numVerticies <= 6;
-        end
-
-         2: begin
-            // Assign values for case 2
-				v0 <= {16'hFE00, 16'hFE00, 16'hFE00}; //3,4,2
-            v1 <= {16'hFE00, 16'hFE00, 16'h0200}; //8,6,1
-            v2 <= {16'hFE00, 16'h0200, 16'hFE00}; //5,1,8
-            v3 <= {16'h0200, 16'hFE00, 16'hFE00}; //5,1,6
-            v4 <= {16'h0200, 16'h0200, 16'hFE00}; //4,3,7
-            v5 <= {16'h0200, 16'hFE00, 16'h0200}; //2,7,4
-            v6 <= {16'h0200, 16'h0200, 16'h0200}; //5,8,6
-            v7 <= {16'hFE00, 16'h0200, 16'h0200}; //2,7,3
-            v8 <= 48'b0;
-            v9 <= 48'b0;
-            v10 <= 48'b0;
-            v11 <= 48'b0;
-				numVerticies <= 8;
-        end
-
-			3: begin
-            // Assign values for case 3
-			   v0 <= {16'h0200, 16'h0, 16'h0}; //6, 5, 2, 3, 4
-            v1 <= {16'h00E5, 16'h01CA, 16'h0}; // 6, 10, 11, 3, 1
-            v2 <= {16'h00E5, 16'h008E, 16'h01B4}; //4, 1, 2, 11, 12
-            v3 <= {16'h00E5, 16'hFE8E, 16'h010D}; //8, 12, 3, 1, 5
-            v4 <= {16'h00E5, 16'hFE8E, 16'hFEF3}; // 4, 1, 8, 6, 9
-            v5 <= {16'h00E5, 16'h008E, 16'hFE4C}; // 9, 10, 2, 1, 5
-            v6 <= {16'hFE00, 16'h0, 16'h0}; // 8, 9, 10, 11, 12
-            v7 <= {16'hFF1B, 16'hFE36, 16'h0}; // 7, 9, 5, 4, 12
-            v8 <= {16'hFF1B, 16'h0172, 16'hFE4C}; //5 6 10 7 8
-            v9 <= {16'hFF1B, 16'hFF73, 16'hFEF3}; //7 9 8 2 11
-            v10 <= {16'hFF1B, 16'hFF73, 16'h010D}; //12 7 3 2 10
-            v11 <= {16'hFF1B, 16'h0172, 16'h01B4}; // 4 8 7 2 3
-				numVerticies <= 12;
-        end
-        default: begin
-            
-            v0 <= {16'h0, 16'h0, 16'h01A2};
-				v1 <= {16'hFE00, 16'hFED8, 16'hFE5E};
-            v2 <= {16'h0200, 16'hFED8, 16'hFE5E};
-				v3 <= {16'h0, 16'h024F, 16'hFE5E};
-            v4 <= 48'b0;
-            v5 <= 48'b0;
-            v6 <= 48'b0;
-            v7 <= 48'b0;
-            v8 <= 48'b0;
-            v9 <= 48'b0;
-            v10 <= 48'b0;
-            v11 <= 48'b0;
-				numVerticies <= 4;
-        end
-    endcase
-end
-
 endmodule
 
 //module XYIncrement(clock, resetn, enabled, initX, initY, maxX, maxY, outX, outY, done);
