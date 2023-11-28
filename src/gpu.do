@@ -12,4 +12,4 @@ force {clock} 0, 1 10ns -r 20ns
 force {resetn} 0, 1 20ns
 force {shapeselect} 0
 force {inputColour} 1
-run 8000ns
+run 24000ns

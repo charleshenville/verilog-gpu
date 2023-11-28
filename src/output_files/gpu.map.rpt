@@ -1,5 +1,5 @@
 Analysis & Synthesis report for gpu
-Mon Nov 27 21:19:25 2023
+Tue Nov 28 02:22:54 2023
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 
 
@@ -30,13 +30,14 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
  22. Parameter Settings for User Entity Instance: decodeAndMap:d0|connectVerticies:c0
  23. altsyncram Parameter Settings by Entity Instance
  24. altpll Parameter Settings by Entity Instance
- 25. Port Connectivity Checks: "decodeAndMap:d0|shapeTypeLUT:s0"
- 26. Port Connectivity Checks: "decodeAndMap:d0"
- 27. Port Connectivity Checks: "vga_adapter:VGA|vga_controller:controller"
- 28. Post-Synthesis Netlist Statistics for Top Partition
- 29. Elapsed Time Per Partition
- 30. Analysis & Synthesis Messages
- 31. Analysis & Synthesis Suppressed Messages
+ 25. Port Connectivity Checks: "decodeAndMap:d0|connectVerticies:c0"
+ 26. Port Connectivity Checks: "decodeAndMap:d0|shapeTypeLUT:s0"
+ 27. Port Connectivity Checks: "decodeAndMap:d0"
+ 28. Port Connectivity Checks: "vga_adapter:VGA|vga_controller:controller"
+ 29. Post-Synthesis Netlist Statistics for Top Partition
+ 30. Elapsed Time Per Partition
+ 31. Analysis & Synthesis Messages
+ 32. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -62,13 +63,13 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Nov 27 21:19:24 2023           ;
+; Analysis & Synthesis Status     ; Successful - Tue Nov 28 02:22:54 2023           ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Standard Edition ;
 ; Revision Name                   ; gpu                                             ;
 ; Top-level Entity Name           ; gpu                                             ;
 ; Family                          ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 77                                              ;
+; Total registers                 ; 87                                              ;
 ; Total pins                      ; 44                                              ;
 ; Total virtual pins              ; 0                                               ;
 ; Total block memory bits         ; 230,400                                         ;
@@ -222,16 +223,16 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 183            ;
+; Estimate of Logic utilization (ALMs needed) ; 262            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 299            ;
-;     -- 7 input functions                    ; 1              ;
-;     -- 6 input functions                    ; 64             ;
-;     -- 5 input functions                    ; 35             ;
-;     -- 4 input functions                    ; 21             ;
-;     -- <=3 input functions                  ; 178            ;
+; Combinational ALUT usage for logic          ; 422            ;
+;     -- 7 input functions                    ; 6              ;
+;     -- 6 input functions                    ; 93             ;
+;     -- 5 input functions                    ; 103            ;
+;     -- 4 input functions                    ; 40             ;
+;     -- <=3 input functions                  ; 180            ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 77             ;
+; Dedicated logic registers                   ; 87             ;
 ;                                             ;                ;
 ; I/O pins                                    ; 44             ;
 ; Total MLAB memory bits                      ; 0              ;
@@ -243,9 +244,9 @@ refer to the applicable agreement for further details.
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 74             ;
-; Total fan-out                               ; 2393           ;
-; Average fan-out                             ; 4.83           ;
+; Maximum fan-out                             ; 84             ;
+; Total fan-out                               ; 3067           ;
+; Average fan-out                             ; 4.88           ;
 +---------------------------------------------+----------------+
 
 
@@ -254,9 +255,10 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------------------------------------------------------------------+------------------------+--------------+
 ; Compilation Hierarchy Node                              ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                 ; Entity Name            ; Library Name ;
 +---------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+-----------------------------------------------------------------------------------------------------+------------------------+--------------+
-; |gpu                                                    ; 299 (1)             ; 77 (0)                    ; 230400            ; 0          ; 44   ; 0            ; |gpu                                                                                                ; gpu                    ; work         ;
-;    |decodeAndMap:d0|                                    ; 210 (61)            ; 43 (9)                    ; 0                 ; 0          ; 0    ; 0            ; |gpu|decodeAndMap:d0                                                                                ; decodeAndMap           ; work         ;
-;       |connectVerticies:c0|                             ; 149 (149)           ; 34 (34)                   ; 0                 ; 0          ; 0    ; 0            ; |gpu|decodeAndMap:d0|connectVerticies:c0                                                            ; connectVerticies       ; work         ;
+; |gpu                                                    ; 422 (1)             ; 87 (0)                    ; 230400            ; 0          ; 44   ; 0            ; |gpu                                                                                                ; gpu                    ; work         ;
+;    |decodeAndMap:d0|                                    ; 333 (136)           ; 53 (18)                   ; 0                 ; 0          ; 0    ; 0            ; |gpu|decodeAndMap:d0                                                                                ; decodeAndMap           ; work         ;
+;       |connectVerticies:c0|                             ; 192 (192)           ; 35 (35)                   ; 0                 ; 0          ; 0    ; 0            ; |gpu|decodeAndMap:d0|connectVerticies:c0                                                            ; connectVerticies       ; work         ;
+;       |shapeTypeLUT:s0|                                 ; 5 (5)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |gpu|decodeAndMap:d0|shapeTypeLUT:s0                                                                ; shapeTypeLUT           ; work         ;
 ;    |vga_adapter:VGA|                                    ; 88 (2)              ; 34 (0)                    ; 230400            ; 0          ; 0    ; 0            ; |gpu|vga_adapter:VGA                                                                                ; vga_adapter            ; work         ;
 ;       |altsyncram:VideoMemory|                          ; 32 (0)              ; 8 (0)                     ; 230400            ; 0          ; 0    ; 0            ; |gpu|vga_adapter:VGA|altsyncram:VideoMemory                                                         ; altsyncram             ; work         ;
 ;          |altsyncram_c7m1:auto_generated|               ; 32 (0)              ; 8 (8)                     ; 230400            ; 0          ; 0    ; 0            ; |gpu|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_c7m1:auto_generated                          ; altsyncram_c7m1        ; work         ;
@@ -285,81 +287,107 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Encoding Type:  One-Hot
 +------------------------------------------------------------+
 ; State Machine - |gpu|decodeAndMap:d0|connectVerticies:c0|y ;
-+------+-----+-----+-----------------------------------------+
-; Name ; y.A ; y.C ; y.B                                     ;
-+------+-----+-----+-----------------------------------------+
-; y.A  ; 0   ; 0   ; 0                                       ;
-; y.B  ; 1   ; 0   ; 1                                       ;
-; y.C  ; 1   ; 1   ; 0                                       ;
-+------+-----+-----+-----------------------------------------+
++------+-----+-----+-----+-----------------------------------+
+; Name ; y.D ; y.C ; y.B ; y.A                               ;
++------+-----+-----+-----+-----------------------------------+
+; y.A  ; 0   ; 0   ; 0   ; 0                                 ;
+; y.B  ; 0   ; 0   ; 1   ; 1                                 ;
+; y.C  ; 0   ; 1   ; 0   ; 1                                 ;
+; y.D  ; 1   ; 0   ; 0   ; 1                                 ;
++------+-----+-----+-----+-----------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                                             ;
-+-----------------------------------------------------+----------------------------------+------------------------+
-; Latch Name                                          ; Latch Enable Signal              ; Free of Timing Hazards ;
-+-----------------------------------------------------+----------------------------------+------------------------+
-; decodeAndMap:d0|WE                                  ; decodeAndMap:d0|WE               ; yes                    ;
-; decodeAndMap:d0|currentStartX[7]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentEndX[0]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndX[1]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndX[2]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndX[3]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndX[4]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndX[5]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndX[7]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndX[8]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndY[0]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndY[1]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndY[2]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndY[4]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndY[5]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndY[6]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentEndY[8]                      ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|currentStartX[8]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartY[4]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartY[5]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartY[6]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartX[0]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartX[1]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartX[2]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartX[3]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartX[4]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartX[5]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|Y[1]                                ; decodeAndMap:d0|Y[0]             ; yes                    ;
-; decodeAndMap:d0|Y[2]                                ; decodeAndMap:d0|Y[0]             ; yes                    ;
-; decodeAndMap:d0|Y[3]                                ; decodeAndMap:d0|Y[0]             ; yes                    ;
-; decodeAndMap:d0|Y[0]                                ; decodeAndMap:d0|Y[0]             ; yes                    ;
-; decodeAndMap:d0|activate                            ; decodeAndMap:d0|activate         ; yes                    ;
-; decodeAndMap:d0|currentStartY[0]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartY[1]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartY[2]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|currentStartY[3]                    ; decodeAndMap:d0|currentStartY[9] ; yes                    ;
-; decodeAndMap:d0|lastConnectState[1]                 ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|lastConnectState[0]                 ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; decodeAndMap:d0|lastConnectState[2]                 ; decodeAndMap:d0|currentEndY[9]   ; yes                    ;
-; Number of user-specified and inferred latches = 39  ;                                  ;                        ;
-+-----------------------------------------------------+----------------------------------+------------------------+
++---------------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                     ;
++-----------------------------------------------------+--------------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal      ; Free of Timing Hazards ;
++-----------------------------------------------------+--------------------------+------------------------+
+; decodeAndMap:d0|WE                                  ; decodeAndMap:d0|WideOr35 ; yes                    ;
+; decodeAndMap:d0|currentStartX[6]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndX[6]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartY[7]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndY[7]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartY[6]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndY[6]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartY[5]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndY[5]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartY[4]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndY[4]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartY[3]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndY[3]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartY[1]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndY[1]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartY[0]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndY[0]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentEndX[7]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartX[7]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentStartX[5]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndX[4]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartX[4]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndX[3]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartX[3]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|currentEndX[2]                      ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|currentStartX[2]                    ; decodeAndMap:d0|WideOr33 ; yes                    ;
+; decodeAndMap:d0|Y[4]                                ; decodeAndMap:d0|WideOr25 ; yes                    ;
+; decodeAndMap:d0|Y[3]                                ; decodeAndMap:d0|WideOr25 ; yes                    ;
+; decodeAndMap:d0|Y[2]                                ; decodeAndMap:d0|WideOr25 ; yes                    ;
+; decodeAndMap:d0|Y[1]                                ; decodeAndMap:d0|WideOr25 ; yes                    ;
+; decodeAndMap:d0|Y[0]                                ; decodeAndMap:d0|WideOr25 ; yes                    ;
+; decodeAndMap:d0|activate                            ; decodeAndMap:d0|WideOr32 ; yes                    ;
+; decodeAndMap:d0|lastConnectState[3]                 ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|lastConnectState[2]                 ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|lastConnectState[1]                 ; decodeAndMap:d0|Mux50    ; yes                    ;
+; decodeAndMap:d0|lastConnectState[0]                 ; decodeAndMap:d0|Mux50    ; yes                    ;
+; Number of user-specified and inferred latches = 36  ;                          ;                        ;
++-----------------------------------------------------+--------------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
-+----------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                           ;
-+-----------------------------------------------------+----------------------------------------+
-; Register name                                       ; Reason for Removal                     ;
-+-----------------------------------------------------+----------------------------------------+
-; decodeAndMap:d0|v0[19..31,35..47]                   ; Stuck at GND due to stuck port data_in ;
-; decodeAndMap:d0|v1[22,25,37..41]                    ; Stuck at GND due to stuck port data_in ;
-; decodeAndMap:d0|v2[22,25,36,42..47]                 ; Stuck at GND due to stuck port data_in ;
-; decodeAndMap:d0|v3[19..22,24,25,27..31,35..47]      ; Stuck at GND due to stuck port data_in ;
-; decodeAndMap:d0|v1[29..31,45..47]                   ; Lost fanout                            ;
-; decodeAndMap:d0|v2[29..31]                          ; Lost fanout                            ;
-; decodeAndMap:d0|y[5]                                ; Stuck at GND due to stuck port data_in ;
-; decodeAndMap:d0|v1[20,21,23,24,26..28,35,36,42..44] ; Merged with decodeAndMap:d0|v1[19]     ;
-; decodeAndMap:d0|v2[19..21,23,24,26..28,35,37..41]   ; Merged with decodeAndMap:d0|v1[19]     ;
-; decodeAndMap:d0|v3[23,26]                           ; Merged with decodeAndMap:d0|v1[19]     ;
-; Total Number of Removed Registers = 104             ;                                        ;
-+-----------------------------------------------------+----------------------------------------+
++----------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                     ;
++-----------------------------------------------+----------------------------------------+
+; Register name                                 ; Reason for Removal                     ;
++-----------------------------------------------+----------------------------------------+
+; decodeAndMap:d0|v0[19..24,35..40]             ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|v1[21,35,36,40]               ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|v2[21,24,35,36,40]            ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|v3[35,36,40,42..47]           ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|v3[25]                        ; Stuck at VCC due to stuck port data_in ;
+; decodeAndMap:d0|v3[20,21,24]                  ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|v4[20..22,24,35,36,40,42..47] ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|v5[20..22,24,35,36,40]        ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|v0[29..31,45..47]             ; Lost fanout                            ;
+; decodeAndMap:d0|v1[29..31,45..47]             ; Lost fanout                            ;
+; decodeAndMap:d0|v2[29..31,45..47]             ; Lost fanout                            ;
+; decodeAndMap:d0|v3[29..31]                    ; Lost fanout                            ;
+; decodeAndMap:d0|v4[29..31]                    ; Lost fanout                            ;
+; decodeAndMap:d0|v5[29..31,45..47]             ; Lost fanout                            ;
+; decodeAndMap:d0|v4[25]                        ; Merged with decodeAndMap:d0|v0[41]     ;
+; decodeAndMap:d0|v0[26..28,42..44]             ; Merged with decodeAndMap:d0|v0[25]     ;
+; decodeAndMap:d0|v2[42..44]                    ; Merged with decodeAndMap:d0|v0[25]     ;
+; decodeAndMap:d0|v3[41]                        ; Merged with decodeAndMap:d0|v0[25]     ;
+; decodeAndMap:d0|v5[25..28]                    ; Merged with decodeAndMap:d0|v0[25]     ;
+; decodeAndMap:d0|v1[26..28,41..44]             ; Merged with decodeAndMap:d0|v1[25]     ;
+; decodeAndMap:d0|v2[41]                        ; Merged with decodeAndMap:d0|v1[25]     ;
+; decodeAndMap:d0|v5[41]                        ; Merged with decodeAndMap:d0|v4[41]     ;
+; decodeAndMap:d0|v5[43,44]                     ; Merged with decodeAndMap:d0|v5[42]     ;
+; decodeAndMap:d0|v1[37..39]                    ; Merged with decodeAndMap:d0|v1[24]     ;
+; decodeAndMap:d0|v2[37..39]                    ; Merged with decodeAndMap:d0|v1[24]     ;
+; decodeAndMap:d0|v3[23,37..39]                 ; Merged with decodeAndMap:d0|v1[24]     ;
+; decodeAndMap:d0|v4[19,23,26..28,37..39]       ; Merged with decodeAndMap:d0|v1[24]     ;
+; decodeAndMap:d0|v5[19,23,37..39]              ; Merged with decodeAndMap:d0|v1[24]     ;
+; decodeAndMap:d0|v2[20,22,26..28]              ; Merged with decodeAndMap:d0|v1[20]     ;
+; decodeAndMap:d0|v3[22]                        ; Merged with decodeAndMap:d0|v1[20]     ;
+; decodeAndMap:d0|v1[22,23]                     ; Merged with decodeAndMap:d0|v1[19]     ;
+; decodeAndMap:d0|v2[19,23]                     ; Merged with decodeAndMap:d0|v1[19]     ;
+; decodeAndMap:d0|v3[19]                        ; Merged with decodeAndMap:d0|v1[19]     ;
+; decodeAndMap:d0|v3[27,28]                     ; Merged with decodeAndMap:d0|v3[26]     ;
+; decodeAndMap:d0|y[5]                          ; Stuck at GND due to stuck port data_in ;
+; decodeAndMap:d0|connectVerticies:c0|y~2       ; Lost fanout                            ;
+; decodeAndMap:d0|connectVerticies:c0|y~3       ; Lost fanout                            ;
+; decodeAndMap:d0|connectVerticies:c0|y~4       ; Lost fanout                            ;
+; Total Number of Removed Registers = 150       ;                                        ;
++-----------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -367,12 +395,12 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 77    ;
+; Total registers                              ; 87    ;
 ; Number of registers using Synchronous Clear  ; 41    ;
-; Number of registers using Synchronous Load   ; 9     ;
+; Number of registers using Synchronous Load   ; 18    ;
 ; Number of registers using Asynchronous Clear ; 20    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 41    ;
+; Number of registers using Clock Enable       ; 53    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -382,14 +410,18 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                   ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |gpu|vga_adapter:VGA|vga_controller:controller|yCounter[5]                                                   ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 0 LEs                ; 24 LEs                 ; Yes        ; |gpu|decodeAndMap:d0|connectVerticies:c0|outX[0]                                                             ;
-; 5:1                ; 7 bits    ; 21 LEs        ; 14 LEs               ; 7 LEs                  ; Yes        ; |gpu|decodeAndMap:d0|connectVerticies:c0|outY[3]                                                             ;
-; 7:1                ; 12 bits   ; 48 LEs        ; 24 LEs               ; 24 LEs                 ; Yes        ; |gpu|decodeAndMap:d0|connectVerticies:c0|err[6]                                                              ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |gpu|vga_adapter:VGA|vga_controller:controller|yCounter[0]                                                   ;
+; 7:1                ; 9 bits    ; 36 LEs        ; 0 LEs                ; 36 LEs                 ; Yes        ; |gpu|decodeAndMap:d0|connectVerticies:c0|outX[2]                                                             ;
+; 7:1                ; 9 bits    ; 36 LEs        ; 0 LEs                ; 36 LEs                 ; Yes        ; |gpu|decodeAndMap:d0|connectVerticies:c0|outY[0]                                                             ;
+; 8:1                ; 12 bits   ; 60 LEs        ; 24 LEs               ; 36 LEs                 ; Yes        ; |gpu|decodeAndMap:d0|connectVerticies:c0|err[10]                                                             ;
+; 1:1                ; 3 bits    ; 0 LEs         ; 0 LEs                ; 0 LEs                  ; No         ; |gpu|decodeAndMap:d0|Mux60                                                                                   ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |gpu|decodeAndMap:d0|Mux0                                                                                    ;
 ; 9:1                ; 3 bits    ; 18 LEs        ; 18 LEs               ; 0 LEs                  ; No         ; |gpu|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_c7m1:auto_generated|mux_2hb:mux3|l4_w1_n0_mux_dataout ;
-; 3:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |gpu|decodeAndMap:d0|Selector16                                                                              ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |gpu|decodeAndMap:d0|Selector23                                                                              ;
-; 8:1                ; 3 bits    ; 15 LEs        ; 12 LEs               ; 3 LEs                  ; No         ; |gpu|decodeAndMap:d0|Selector10                                                                              ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |gpu|decodeAndMap:d0|Mux64                                                                                   ;
+; 8:1                ; 3 bits    ; 15 LEs        ; 12 LEs               ; 3 LEs                  ; No         ; |gpu|decodeAndMap:d0|Mux23                                                                                   ;
+; 8:1                ; 2 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |gpu|decodeAndMap:d0|Mux29                                                                                   ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 6 LEs                ; 10 LEs                 ; No         ; |gpu|decodeAndMap:d0|Mux67                                                                                   ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 10 LEs               ; 4 LEs                  ; No         ; |gpu|decodeAndMap:d0|Mux30                                                                                   ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------------------------------------------------------------------+
 
 
@@ -906,10 +938,11 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+-------+---------------------------------------------------------+
 ; Parameter Name ; Value ; Type                                                    ;
 +----------------+-------+---------------------------------------------------------+
-; A              ; 00    ; Unsigned Binary                                         ;
-; B              ; 01    ; Unsigned Binary                                         ;
-; C              ; 10    ; Unsigned Binary                                         ;
-; D              ; 11    ; Unsigned Binary                                         ;
+; A              ; 000   ; Unsigned Binary                                         ;
+; B              ; 001   ; Unsigned Binary                                         ;
+; C              ; 010   ; Unsigned Binary                                         ;
+; D              ; 011   ; Unsigned Binary                                         ;
+; E              ; 100   ; Unsigned Binary                                         ;
 +----------------+-------+---------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
@@ -951,6 +984,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------+-------------------------------------------------------+
 
 
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "decodeAndMap:d0|connectVerticies:c0"                                                                                                                                                ;
++--------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port   ; Type  ; Severity ; Details                                                                                                                                                                            ;
++--------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; startX ; Input ; Warning  ; Input port expression (11 bits) is wider than the input port (10 bits) it drives.  The 1 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; startY ; Input ; Warning  ; Input port expression (11 bits) is wider than the input port (10 bits) it drives.  The 1 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; endX   ; Input ; Warning  ; Input port expression (11 bits) is wider than the input port (10 bits) it drives.  The 1 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; endY   ; Input ; Warning  ; Input port expression (11 bits) is wider than the input port (10 bits) it drives.  The 1 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
++--------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
 +------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "decodeAndMap:d0|shapeTypeLUT:s0"                                                            ;
 +--------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -964,8 +1009,10 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; v2[18..0]    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; v3[34..32]   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; v3[18..0]    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; v4           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; v5           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; v4[34..32]   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; v4[18..0]    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; v5[34..32]   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; v5[18..0]    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; v6           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; v7           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; v8           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
@@ -1001,40 +1048,40 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 77                          ;
+; arriav_ff             ; 87                          ;
 ;     CLR SCLR          ; 10                          ;
-;     ENA               ; 16                          ;
+;     ENA               ; 25                          ;
 ;     ENA CLR SCLR      ; 10                          ;
-;     ENA SCLR          ; 7                           ;
-;     ENA SCLR SLD      ; 8                           ;
-;     SCLR              ; 5                           ;
-;     SCLR SLD          ; 1                           ;
-;     plain             ; 20                          ;
-; arriav_lcell_comb     ; 300                         ;
-;     arith             ; 85                          ;
-;         1 data inputs ; 22                          ;
-;         2 data inputs ; 63                          ;
-;     extend            ; 1                           ;
-;         7 data inputs ; 1                           ;
-;     normal            ; 172                         ;
+;     ENA SCLR SLD      ; 18                          ;
+;     SCLR              ; 3                           ;
+;     plain             ; 21                          ;
+; arriav_lcell_comb     ; 423                         ;
+;     arith             ; 113                         ;
+;         0 data inputs ; 11                          ;
+;         1 data inputs ; 30                          ;
+;         2 data inputs ; 27                          ;
+;         5 data inputs ; 45                          ;
+;     extend            ; 6                           ;
+;         7 data inputs ; 6                           ;
+;     normal            ; 282                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 1                           ;
-;         2 data inputs ; 8                           ;
-;         3 data inputs ; 41                          ;
-;         4 data inputs ; 21                          ;
-;         5 data inputs ; 35                          ;
-;         6 data inputs ; 64                          ;
-;     shared            ; 42                          ;
-;         0 data inputs ; 6                           ;
-;         1 data inputs ; 6                           ;
-;         2 data inputs ; 28                          ;
+;         1 data inputs ; 4                           ;
+;         2 data inputs ; 17                          ;
+;         3 data inputs ; 68                          ;
+;         4 data inputs ; 40                          ;
+;         5 data inputs ; 58                          ;
+;         6 data inputs ; 93                          ;
+;     shared            ; 22                          ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 4                           ;
+;         2 data inputs ; 14                          ;
 ;         3 data inputs ; 2                           ;
 ; boundary_port         ; 44                          ;
 ; generic_pll           ; 1                           ;
 ; stratixv_ram_block    ; 30                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.90                        ;
-; Average LUT depth     ; 3.31                        ;
+; Max LUT depth         ; 9.10                        ;
+; Average LUT depth     ; 4.33                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1043,7 +1090,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -1053,15 +1100,15 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
-    Info: Processing started: Mon Nov 27 21:19:15 2023
+    Info: Processing started: Tue Nov 28 02:22:44 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off gpu -c gpu
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
 Info (12021): Found 4 design units, including 4 entities, in source file gpu.v
     Info (12023): Found entity 1: gpu File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 2
     Info (12023): Found entity 2: decodeAndMap File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 68
-    Info (12023): Found entity 3: connectVerticies File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 256
-    Info (12023): Found entity 4: shapeTypeLUT File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 342
+    Info (12023): Found entity 3: connectVerticies File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 377
+    Info (12023): Found entity 4: shapeTypeLUT File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 484
 Info (12021): Found 1 design units, including 1 entities, in source file vga_adapter/vga_pll.v
     Info (12023): Found entity 1: vga_pll File: C:/Users/henvill1/verilog-gpu/src/vga_adapter/vga_pll.v Line: 36
 Info (12021): Found 1 design units, including 1 entities, in source file vga_adapter/vga_controller.v
@@ -1123,8 +1170,6 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/altp
 Info (12128): Elaborating entity "altpll_80u" for hierarchy "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component|altpll_80u:auto_generated" File: c:/desl/quartus18/quartus/libraries/megafunctions/altpll.tdf Line: 897
 Info (12128): Elaborating entity "vga_controller" for hierarchy "vga_adapter:VGA|vga_controller:controller" File: C:/Users/henvill1/verilog-gpu/src/vga_adapter/vga_adapter.v Line: 262
 Info (12128): Elaborating entity "decodeAndMap" for hierarchy "decodeAndMap:d0" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 64
-Warning (10036): Verilog HDL or VHDL warning at gpu.v(100): object "v4" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 100
-Warning (10036): Verilog HDL or VHDL warning at gpu.v(101): object "v5" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 101
 Warning (10036): Verilog HDL or VHDL warning at gpu.v(102): object "v6" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 102
 Warning (10036): Verilog HDL or VHDL warning at gpu.v(103): object "v7" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 103
 Warning (10036): Verilog HDL or VHDL warning at gpu.v(104): object "v8" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 104
@@ -1132,27 +1177,84 @@ Warning (10036): Verilog HDL or VHDL warning at gpu.v(105): object "v9" assigned
 Warning (10036): Verilog HDL or VHDL warning at gpu.v(106): object "v10" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 106
 Warning (10036): Verilog HDL or VHDL warning at gpu.v(107): object "v11" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 107
 Warning (10036): Verilog HDL or VHDL warning at gpu.v(131): object "doneDrawingShape" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 131
-Warning (10230): Verilog HDL assignment warning at gpu.v(152): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 152
-Warning (10230): Verilog HDL assignment warning at gpu.v(153): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 153
-Warning (10230): Verilog HDL assignment warning at gpu.v(154): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 154
-Warning (10230): Verilog HDL assignment warning at gpu.v(155): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 155
-Warning (10230): Verilog HDL assignment warning at gpu.v(163): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 163
-Warning (10230): Verilog HDL assignment warning at gpu.v(164): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 164
-Warning (10230): Verilog HDL assignment warning at gpu.v(172): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 172
-Warning (10230): Verilog HDL assignment warning at gpu.v(173): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 173
-Warning (10230): Verilog HDL assignment warning at gpu.v(181): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 181
-Warning (10230): Verilog HDL assignment warning at gpu.v(182): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 182
-Warning (10230): Verilog HDL assignment warning at gpu.v(183): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 183
-Warning (10230): Verilog HDL assignment warning at gpu.v(184): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 184
-Warning (10230): Verilog HDL assignment warning at gpu.v(192): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 192
-Warning (10230): Verilog HDL assignment warning at gpu.v(193): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 193
-Warning (10230): Verilog HDL assignment warning at gpu.v(201): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 201
-Warning (10230): Verilog HDL assignment warning at gpu.v(202): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 202
-Warning (10230): Verilog HDL assignment warning at gpu.v(203): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 203
-Warning (10230): Verilog HDL assignment warning at gpu.v(204): truncated value with size 32 to match size of target (10) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 204
-Warning (10230): Verilog HDL assignment warning at gpu.v(211): truncated value with size 32 to match size of target (6) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 211
-Warning (10230): Verilog HDL assignment warning at gpu.v(216): truncated value with size 32 to match size of target (6) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 216
-Warning (10270): Verilog HDL Case Statement warning at gpu.v(146): incomplete case statement has no default case item File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 146
+Warning (10230): Verilog HDL assignment warning at gpu.v(141): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 141
+Warning (10230): Verilog HDL assignment warning at gpu.v(142): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 142
+Warning (10230): Verilog HDL assignment warning at gpu.v(143): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 143
+Warning (10230): Verilog HDL assignment warning at gpu.v(144): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 144
+Warning (10230): Verilog HDL assignment warning at gpu.v(150): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 150
+Warning (10230): Verilog HDL assignment warning at gpu.v(151): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 151
+Warning (10230): Verilog HDL assignment warning at gpu.v(152): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 152
+Warning (10230): Verilog HDL assignment warning at gpu.v(153): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 153
+Warning (10230): Verilog HDL assignment warning at gpu.v(159): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 159
+Warning (10230): Verilog HDL assignment warning at gpu.v(160): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 160
+Warning (10230): Verilog HDL assignment warning at gpu.v(161): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 161
+Warning (10230): Verilog HDL assignment warning at gpu.v(162): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 162
+Warning (10230): Verilog HDL assignment warning at gpu.v(168): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 168
+Warning (10230): Verilog HDL assignment warning at gpu.v(169): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 169
+Warning (10230): Verilog HDL assignment warning at gpu.v(170): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 170
+Warning (10230): Verilog HDL assignment warning at gpu.v(171): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 171
+Warning (10230): Verilog HDL assignment warning at gpu.v(177): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 177
+Warning (10230): Verilog HDL assignment warning at gpu.v(178): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 178
+Warning (10230): Verilog HDL assignment warning at gpu.v(179): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 179
+Warning (10230): Verilog HDL assignment warning at gpu.v(180): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 180
+Warning (10230): Verilog HDL assignment warning at gpu.v(186): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 186
+Warning (10230): Verilog HDL assignment warning at gpu.v(187): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 187
+Warning (10230): Verilog HDL assignment warning at gpu.v(188): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 188
+Warning (10230): Verilog HDL assignment warning at gpu.v(189): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 189
+Warning (10230): Verilog HDL assignment warning at gpu.v(195): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 195
+Warning (10230): Verilog HDL assignment warning at gpu.v(196): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 196
+Warning (10230): Verilog HDL assignment warning at gpu.v(197): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 197
+Warning (10230): Verilog HDL assignment warning at gpu.v(198): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 198
+Warning (10230): Verilog HDL assignment warning at gpu.v(204): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 204
+Warning (10230): Verilog HDL assignment warning at gpu.v(205): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 205
+Warning (10230): Verilog HDL assignment warning at gpu.v(206): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 206
+Warning (10230): Verilog HDL assignment warning at gpu.v(207): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 207
+Warning (10230): Verilog HDL assignment warning at gpu.v(212): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 212
+Warning (10230): Verilog HDL assignment warning at gpu.v(213): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 213
+Warning (10230): Verilog HDL assignment warning at gpu.v(214): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 214
+Warning (10230): Verilog HDL assignment warning at gpu.v(215): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 215
+Warning (10230): Verilog HDL assignment warning at gpu.v(220): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 220
+Warning (10230): Verilog HDL assignment warning at gpu.v(221): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 221
+Warning (10230): Verilog HDL assignment warning at gpu.v(222): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 222
+Warning (10230): Verilog HDL assignment warning at gpu.v(223): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 223
+Warning (10230): Verilog HDL assignment warning at gpu.v(228): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 228
+Warning (10230): Verilog HDL assignment warning at gpu.v(229): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 229
+Warning (10230): Verilog HDL assignment warning at gpu.v(230): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 230
+Warning (10230): Verilog HDL assignment warning at gpu.v(231): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 231
+Warning (10230): Verilog HDL assignment warning at gpu.v(236): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 236
+Warning (10230): Verilog HDL assignment warning at gpu.v(237): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 237
+Warning (10230): Verilog HDL assignment warning at gpu.v(238): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 238
+Warning (10230): Verilog HDL assignment warning at gpu.v(239): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 239
+Warning (10230): Verilog HDL assignment warning at gpu.v(246): truncated value with size 32 to match size of target (6) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 246
+Warning (10230): Verilog HDL assignment warning at gpu.v(251): truncated value with size 32 to match size of target (6) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 251
+Warning (10270): Verilog HDL Case Statement warning at gpu.v(137): incomplete case statement has no default case item File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 137
+Warning (10230): Verilog HDL assignment warning at gpu.v(276): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 276
+Warning (10230): Verilog HDL assignment warning at gpu.v(277): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 277
+Warning (10230): Verilog HDL assignment warning at gpu.v(278): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 278
+Warning (10230): Verilog HDL assignment warning at gpu.v(279): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 279
+Warning (10230): Verilog HDL assignment warning at gpu.v(285): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 285
+Warning (10230): Verilog HDL assignment warning at gpu.v(286): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 286
+Warning (10230): Verilog HDL assignment warning at gpu.v(287): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 287
+Warning (10230): Verilog HDL assignment warning at gpu.v(288): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 288
+Warning (10230): Verilog HDL assignment warning at gpu.v(294): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 294
+Warning (10230): Verilog HDL assignment warning at gpu.v(295): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 295
+Warning (10230): Verilog HDL assignment warning at gpu.v(296): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 296
+Warning (10230): Verilog HDL assignment warning at gpu.v(297): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 297
+Warning (10230): Verilog HDL assignment warning at gpu.v(303): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 303
+Warning (10230): Verilog HDL assignment warning at gpu.v(304): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 304
+Warning (10230): Verilog HDL assignment warning at gpu.v(305): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 305
+Warning (10230): Verilog HDL assignment warning at gpu.v(306): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 306
+Warning (10230): Verilog HDL assignment warning at gpu.v(312): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 312
+Warning (10230): Verilog HDL assignment warning at gpu.v(313): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 313
+Warning (10230): Verilog HDL assignment warning at gpu.v(314): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 314
+Warning (10230): Verilog HDL assignment warning at gpu.v(315): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 315
+Warning (10230): Verilog HDL assignment warning at gpu.v(321): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 321
+Warning (10230): Verilog HDL assignment warning at gpu.v(322): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 322
+Warning (10230): Verilog HDL assignment warning at gpu.v(323): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 323
+Warning (10230): Verilog HDL assignment warning at gpu.v(324): truncated value with size 32 to match size of target (11) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 324
+Warning (10230): Verilog HDL assignment warning at gpu.v(331): truncated value with size 32 to match size of target (6) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 331
+Warning (10230): Verilog HDL assignment warning at gpu.v(336): truncated value with size 32 to match size of target (6) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 336
+Warning (10270): Verilog HDL Case Statement warning at gpu.v(272): incomplete case statement has no default case item File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 272
 Warning (10240): Verilog HDL Always Construct warning at gpu.v(135): inferring latch(es) for variable "Y", which holds its previous value in one or more paths through the always construct File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Warning (10240): Verilog HDL Always Construct warning at gpu.v(135): inferring latch(es) for variable "activate", which holds its previous value in one or more paths through the always construct File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Warning (10240): Verilog HDL Always Construct warning at gpu.v(135): inferring latch(es) for variable "currentStartX", which holds its previous value in one or more paths through the always construct File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
@@ -1171,6 +1273,7 @@ Info (10041): Inferred latch for "currentEndY[6]" at gpu.v(135) File: C:/Users/h
 Info (10041): Inferred latch for "currentEndY[7]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentEndY[8]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentEndY[9]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+Info (10041): Inferred latch for "currentEndY[10]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentEndX[0]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentEndX[1]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentEndX[2]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
@@ -1181,6 +1284,7 @@ Info (10041): Inferred latch for "currentEndX[6]" at gpu.v(135) File: C:/Users/h
 Info (10041): Inferred latch for "currentEndX[7]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentEndX[8]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentEndX[9]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+Info (10041): Inferred latch for "currentEndX[10]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "lastConnectState[0]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "lastConnectState[1]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "lastConnectState[2]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
@@ -1198,6 +1302,7 @@ Info (10041): Inferred latch for "currentStartY[6]" at gpu.v(135) File: C:/Users
 Info (10041): Inferred latch for "currentStartY[7]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentStartY[8]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentStartY[9]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+Info (10041): Inferred latch for "currentStartY[10]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentStartX[0]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentStartX[1]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentStartX[2]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
@@ -1208,6 +1313,7 @@ Info (10041): Inferred latch for "currentStartX[6]" at gpu.v(135) File: C:/Users
 Info (10041): Inferred latch for "currentStartX[7]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentStartX[8]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "currentStartX[9]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+Info (10041): Inferred latch for "currentStartX[10]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "activate" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "Y[0]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (10041): Inferred latch for "Y[1]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
@@ -1217,83 +1323,90 @@ Info (10041): Inferred latch for "Y[4]" at gpu.v(135) File: C:/Users/henvill1/ve
 Info (10041): Inferred latch for "Y[5]" at gpu.v(135) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Info (12128): Elaborating entity "shapeTypeLUT" for hierarchy "decodeAndMap:d0|shapeTypeLUT:s0" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 125
 Info (12128): Elaborating entity "connectVerticies" for hierarchy "decodeAndMap:d0|connectVerticies:c0" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 126
-Warning (10036): Verilog HDL or VHDL warning at gpu.v(271): object "checkEndX" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 271
-Warning (10036): Verilog HDL or VHDL warning at gpu.v(272): object "checkEndY" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 272
-Warning (10230): Verilog HDL assignment warning at gpu.v(313): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 313
-Warning (10230): Verilog HDL assignment warning at gpu.v(314): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 314
-Warning (10230): Verilog HDL assignment warning at gpu.v(321): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 321
-Warning (10230): Verilog HDL assignment warning at gpu.v(325): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 325
-Warning (10230): Verilog HDL assignment warning at gpu.v(329): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 329
-Warning (10230): Verilog HDL assignment warning at gpu.v(330): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 330
-Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (10036): Verilog HDL or VHDL warning at gpu.v(397): object "up" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 397
+Warning (10036): Verilog HDL or VHDL warning at gpu.v(397): object "right" assigned a value but never read File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 397
+Warning (10230): Verilog HDL assignment warning at gpu.v(447): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 447
+Warning (10230): Verilog HDL assignment warning at gpu.v(448): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 448
+Warning (10230): Verilog HDL assignment warning at gpu.v(452): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 452
+Warning (10230): Verilog HDL assignment warning at gpu.v(453): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 453
+Warning (10230): Verilog HDL assignment warning at gpu.v(459): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 459
+Warning (10230): Verilog HDL assignment warning at gpu.v(463): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 463
+Warning (10230): Verilog HDL assignment warning at gpu.v(467): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 467
+Warning (10230): Verilog HDL assignment warning at gpu.v(468): truncated value with size 32 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 468
+Warning (10230): Verilog HDL assignment warning at gpu.v(472): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 472
+Warning (10230): Verilog HDL assignment warning at gpu.v(473): truncated value with size 10 to match size of target (9) File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 473
+Warning (12241): 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (13025): Duplicate LATCH primitives merged into single LATCH primitive
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartY[6]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[7]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartY[4]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[7]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndY[2]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[0]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndY[1]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[0]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndY[0]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[0]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndX[4]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[2]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndX[3]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[2]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndY[6]" merged with LATCH primitive "decodeAndMap:d0|currentEndY[4]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartX[4]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[8]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartX[3]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[8]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartX[2]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[8]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartY[3]" merged with LATCH primitive "decodeAndMap:d0|currentStartY[5]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartY[2]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[0]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartY[1]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[0]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartY[0]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[0]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndX[2]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[4]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndX[3]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[4]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartX[2]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[4]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentStartX[3]" merged with LATCH primitive "decodeAndMap:d0|currentStartX[4]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
 Warning (13012): Latch decodeAndMap:d0|WE has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 78
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[1] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentStartX[7] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndX[0] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndX[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndX[2] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndX[5] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndX[7] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndX[8] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[3] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndY[5] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentEndY[8] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentStartX[8] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|currentStartX[6] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|currentEndX[6] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentStartY[7] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentEndY[7] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|currentStartY[6] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentEndY[6] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
 Warning (13012): Latch decodeAndMap:d0|currentStartY[5] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentStartX[0] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[3] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|currentStartX[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentEndY[5] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentStartY[4] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentEndY[4] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentStartY[3] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentEndY[3] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentStartY[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|currentEndY[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|currentStartY[0] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|currentEndY[0] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|currentEndX[7] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentStartX[7] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
 Warning (13012): Latch decodeAndMap:d0|currentStartX[5] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|Y[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[3] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|Y[2] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[3] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|currentStartX[4] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|Y[4] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
 Warning (13012): Latch decodeAndMap:d0|Y[3] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|Y[2] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|Y[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
 Warning (13012): Latch decodeAndMap:d0|Y[0] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[3] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
 Warning (13012): Latch decodeAndMap:d0|activate has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 123
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|lastConnectState[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Warning (13012): Latch decodeAndMap:d0|lastConnectState[0] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|lastConnectState[3] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
 Warning (13012): Latch decodeAndMap:d0|lastConnectState[2] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 232
-Info (13025): Duplicate LATCH primitives merged into single LATCH primitive
-    Info (13026): Duplicate LATCH primitive "decodeAndMap:d0|currentEndX[8]" merged with LATCH primitive "decodeAndMap:d0|currentEndX[2]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal decodeAndMap:d0|y[4] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 353
+Warning (13012): Latch decodeAndMap:d0|lastConnectState[1] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
+Warning (13012): Latch decodeAndMap:d0|lastConnectState[0] has unsafe behavior File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 135
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal SW[0] File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 20
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "VGA_SYNC_N" is stuck at VCC File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 25
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 9 registers lost all their fanouts during netlist optimizations.
+Info (17049): 33 registers lost all their fanouts during netlist optimizations.
 Warning (20013): Ignored 385 assignments for entity "DE1_SoC" -- entity does not exist in design
     Warning (20014): Assignment for entity set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ADC_CS_N -entity DE1_SoC was ignored
     Warning (20014): Assignment for entity set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ADC_DIN -entity DE1_SoC was ignored
@@ -1694,15 +1807,15 @@ Warning (21074): Design contains 8 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "KEY[1]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 19
     Warning (15610): No output dependent on input pin "KEY[2]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 19
     Warning (15610): No output dependent on input pin "KEY[3]" File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 19
-Info (21057): Implemented 389 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 515 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 29 output pins
-    Info (21061): Implemented 314 logic cells
+    Info (21061): Implemented 440 logic cells
     Info (21064): Implemented 30 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 492 warnings
-    Info: Peak virtual memory: 4873 megabytes
-    Info: Processing ended: Mon Nov 27 21:19:25 2023
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 567 warnings
+    Info: Peak virtual memory: 4870 megabytes
+    Info: Processing ended: Tue Nov 28 02:22:54 2023
     Info: Elapsed time: 00:00:10
     Info: Total CPU time (on all processors): 00:00:19
 
