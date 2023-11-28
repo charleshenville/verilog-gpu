@@ -7,35 +7,35 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-Z0 dC:/Users/zha13148/verilog-gpu/src
+dC:/Users/zha13148/verilog-gpu/src
 vconnectVerticies
-Z1 !s110 1700986555
+Z0 !s110 1701137939
 !i10b 1
-!s100 nmST18flPR[NHT@mdSbaj0
-I@mI:7cDJ<87=D[TB4[YV<3
-Z2 VDg1SIo80bB@j0V0VzS_@n1
-R0
-Z3 w1700986545
+!s100 c8_i=Z=<9[mhokm70;LNT3
+InDm9NIVzMNLfJ5[k850M;3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+Z2 dC:/Users/henvill1/verilog-gpu/src
+Z3 w1701137763
 Z4 8gpu.v
 Z5 Fgpu.v
-L0 230
+L0 256
 Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1700986555.000000
+Z7 !s108 1701137939.000000
 Z8 !s107 gpu.v|
 Z9 !s90 -reportprogress|300|gpu.v|
 !i113 1
 Z10 tCvgOpt 0
 nconnect@verticies
 vdecodeAndMap
-R1
-!i10b 1
-!s100 XX1R8We0D0E4W6]eXgz@<1
-IY=eGLB5V`2o=]]O5n1oQh1
-R2
 R0
+!i10b 1
+!s100 GXXG^=3<UEHTlYCK9JNN[2
+I_Rl0bXRi`470L@VX=]R=d2
+R1
+R2
 R3
 R4
 R5
@@ -51,12 +51,12 @@ R9
 R10
 ndecode@and@map
 vgpu
-R1
-!i10b 1
-!s100 >lWIdJbK;J5Ll^OSPeX>>3
-ICJN]Vd1JBU6lnPfoSN8bJ1
-R2
 R0
+!i10b 1
+!s100 kNXzZYmmj4Pof25@83^SY1
+IzB8jXBhglmzI]cVJ@j;Mf2
+R1
+R2
 R3
 R4
 R5
@@ -71,16 +71,16 @@ R9
 !i113 1
 R10
 vshapeTypeLUT
-R1
-!i10b 1
-!s100 ez3:N3na]bZCWaLcUPXYR1
-Il=h8a<_]=ebG=S>i1?V0`1
-R2
 R0
+!i10b 1
+!s100 __4>jJmSaXSCYfiEeljIC3
+I5:`zX96]d1@fYWNkEJ<fX0
+R1
+R2
 R3
 R4
 R5
-L0 307
+L0 342
 R6
 r1
 !s85 0

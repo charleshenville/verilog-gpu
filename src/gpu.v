@@ -16,16 +16,16 @@ module gpu (
         );
 
         input CLOCK_50;                               //      50 MHz
-        input   [3:0]   KEY;
+        input [3:0] KEY;
         input [9:0] SW;
-        output                  VGA_CLK;                                //      VGA Clock
-        output                  VGA_HS;                                 //      VGA H_SYNC
-        output                  VGA_VS;                                 //      VGA V_SYNC
-        output                  VGA_BLANK_N;                            //      VGA BLANK
-        output                  VGA_SYNC_N;                             //      VGA SYNC
-        output  [7:0]   VGA_R;                                  //      VGA Red[7:0] Changed from 10 to 8-bit DAC
-        output  [7:0]   VGA_G;                                  //      VGA Green[7:0]
-        output  [7:0]   VGA_B;                                  //      VGA Blue[7:0]
+        output VGA_CLK;                                //      VGA Clock
+        output VGA_HS;                                 //      VGA H_SYNC
+        output VGA_VS;                                 //      VGA V_SYNC
+        output VGA_BLANK_N;                            //      VGA BLANK
+        output VGA_SYNC_N;                             //      VGA SYNC
+        output [7:0] VGA_R;                                  //      VGA Red[7:0] Changed from 10 to 8-bit DAC
+        output [7:0] VGA_G;                                  //      VGA Green[7:0]
+        output [7:0] VGA_B;                                  //      VGA Blue[7:0]
 
         wire resetn;
         assign resetn = KEY[0];
@@ -34,7 +34,7 @@ module gpu (
 
         wire [2:0] colour;
         wire [8:0] x;
-        wire [8:0] y;
+        wire [7:0] y;
         wire writeEn;
 
         // Create an Instance of a VGA controller - there can be only one!
@@ -56,7 +56,7 @@ module gpu (
                         .VGA_BLANK(VGA_BLANK_N),
                         .VGA_SYNC(VGA_SYNC_N),
 								.VGA_CLK(VGA_CLK));
-                defparam VGA.RESOLUTION = "480x360";
+                defparam VGA.RESOLUTION = "320x240";
                 defparam VGA.MONOCHROME = "FALSE";
                 defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
                 defparam VGA.BACKGROUND_IMAGE = "black.mif";
@@ -68,7 +68,7 @@ endmodule
 module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, inputColour);
 
     parameter X_SCREEN_PIXELS = 9'd320;
-    parameter Y_SCREEN_PIXELS = 9'd180;
+    parameter Y_SCREEN_PIXELS = 8'd240;
 
     input [1:0] shapeselect;
     input clock, resetn;
@@ -105,8 +105,21 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     reg [47:0] v9;
     reg [47:0] v10;
     reg [47:0] v11;
+	 
+//	 reg [47:0] y0;
+//    reg [47:0] y1;
+//    reg [47:0] y2;
+//    reg [47:0] y3;
+//    reg [47:0] y4;
+//    reg [47:0] y5;
+//    reg [47:0] y6;
+//    reg [47:0] y7;
+//    reg [47:0] y8;
+//    reg [47:0] y9;
+//    reg [47:0] y10;
+//    reg [47:0] y11;
 
-    reg [8:0] currentStartX, currentStartY, currentEndX, currentEndY;
+    reg [9:0] currentStartX, currentStartY, currentEndX, currentEndY;
     reg activate;
 
     shapeTypeLUT s0(shapeselect, w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, numVerticies);
@@ -132,70 +145,83 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
         default: begin // TETRAHEDRON
             case(y)
                 0: begin
-                    Y <= DC ? 7 : 0;
+                    //Y <= DC ? 7 : 0;
+						  Y <= 8;
                     WE <= 1;
                     lastConnectState <= y;
-                    activate <= 1;
                     currentStartX <= (v0[47:32] >> 3) + 160;
-                    currentStartY <= (v0[31:16] >> 3) + 90;
+                    currentStartY <= (v0[31:16] >> 3) + 120;
                     currentEndX <= (v1[47:32] >> 3) + 160;
-                    currentEndY <= (v1[31:16] >> 3) + 90;
+                    currentEndY <= (v1[31:16] >> 3) + 120;
                 end
 
                 1: begin
-                    Y <= DC ? 7 : 1;
+                    //Y <= DC ? 7 : 1;
+						  Y <= 8;
+						  WE <= 1;
                     lastConnectState <= y;
-                    activate <= 1;
-                    currentEndX <= (v2[47:32] >> 3) + 160;
-                    currentEndY <= (v2[31:16] >> 3) + 90;
+                    currentEndX <= ((v2[47:32] >> 3) + 160);
+                    currentEndY <= ((v2[31:16] >> 3) + 120);
                 end
 
                 2: begin
-                    Y <= DC ? 7 : 2;
+                    //Y <= DC ? 7 : 2;
+						  Y <= 8;
+						  WE <= 1;
                     lastConnectState <= y;
-                    activate <= 1;
                     currentEndX <= (v3[47:32] >> 3) + 160;
-                    currentEndY <= (v3[31:16] >> 3) + 90;
+                    currentEndY <= (v3[31:16] >> 3) + 120;
                 end
 
                 3: begin
-                    Y <= DC ? 7 : 3;
+                    //Y <= DC ? 7 : 3;
+						  Y <= 8;
+						  WE <= 1;
                     lastConnectState <= y;
-                    activate <= 1;
                     currentStartX <= (v1[47:32] >> 3) + 160;
-                    currentStartY <= (v1[31:16] >> 3) + 90;
+                    currentStartY <= (v1[31:16] >> 3) + 120;
                     currentEndX <= (v2[47:32] >> 3) + 160;
-                    currentEndY <= (v2[31:16] >> 3) + 90;
+                    currentEndY <= (v2[31:16] >> 3) + 120;
                 end
 
                 4: begin
-                    Y <= DC ? 7 : 4;
+                    //Y <= DC ? 7 : 4;
+						  Y <= 8;
+						  WE <= 1;
                     lastConnectState <= y;
-                    activate <= 1;
                     currentEndX <= (v3[47:32] >> 3) + 160;
-                    currentEndY <= (v3[31:16] >> 3) + 90;
+                    currentEndY <= (v3[31:16] >> 3) + 120;
                 end
 
                 5: begin
-                    Y <= DC ? 7 : 5;
+                    //Y <= DC ? 7 : 5;
+						  Y <= 8;
+						  WE <= 1;
                     lastConnectState <= y;
-                    activate <= 1;
                     currentStartX <= (v2[47:32] >> 3) + 160;
-                    currentStartY <= (v2[31:16] >> 3) + 90;
+                    currentStartY <= (v2[31:16] >> 3) + 120;
                     currentEndX <= (v3[47:32] >> 3) + 160;
-                    currentEndY <= (v3[31:16] >> 3) + 90;
+                    currentEndY <= (v3[31:16] >> 3) + 120;
                 end
                 6: begin
                     Y <= 6;
                     WE <= 0;
                 end
                 7: begin
-                    Y <= lastConnectState + 1;
+                    Y <= DC ? 7 : lastConnectState + 1;
                     activate <= 0;
+						  WE <= 0;
                 end
+					 8: begin
+						  Y <= DC ? 7 : 8;
+						  activate <= 1;
+					 end
 					 31: begin
-							Y <= 0;
+						  Y <= 0;
                     activate <= 0;
+						  currentStartX <= 0;
+						  currentStartY <= 0;
+						  WE <= 0;
 					 end
             endcase
             doneDrawingShape <= y == 6;
@@ -230,7 +256,10 @@ endmodule
 module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, done);
 
 	input clk, rst, go;
-	input [8:0] startX, startY, endX, endY;
+	input [9:0] startX, startY, endX, endY;
+	
+	input [9:0] x0, y0, x1, y1;
+	
 	output reg [8:0] outX, outY;
 	output reg done;
 	reg isDone;
@@ -242,8 +271,8 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 	assign dx = endX - startX;
 	assign dy = endY - startY;
 	
-	reg [8:0] checkEndX;
-	reg [8:0] checkEndY;
+	reg [9:0] checkEndX;
+	reg [9:0] checkEndY;
 	
 	wire up, right;
 	assign up = dy >= 0;
@@ -256,13 +285,19 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 	assign moveY = (2*err <= dx);
 	
 	always@(*)begin
-	
-		checkEndX = (dx < 2) ? startX : endX;
-		checkEndY = (dy < 2) ? startY : endY;
+		
+		if((right && dx < 2) || (~right && dx > -2)) checkEndX <= startX;
+		else checkEndX <= endX;
+		
+		if((up && dy < 2) || (~up && dy > -2)) checkEndY <= startY;
+		else checkEndY <= endY;
+		
+		if()
+		
 		case(y)
 			A: Y <= go ? B : A;
 			B: Y <= isDone ? C : B;
-			C: Y <= !go ? A : B;
+			C: Y <= !go ? A : C;
 		endcase
 		done <= y == C;
 	end
@@ -271,37 +306,42 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 		if(~rst) begin
 			y <= A;
 			isDone <= 0;
+			outX <= 0;
+			outY <= 0;
 		end
-		else y<=Y; // huh
-		
-		case(y)
-			A: begin
-					err <= dx + dy;
-					outX <= startX;
-					outY <= startY;
-				end
-			B: begin
-					if (outX == checkEndX && outY == checkEndY) isDone <= 1;
-					else begin
+		else begin 
+			y<=Y; // huh
+			case(y)
+				A: begin
 						isDone <= 0;
-						if(moveX) begin
-							outX <= right ? outX + 1 : outX - 1;
-							err <= err + dy;
-						end
-						if(moveY) begin
-							outY <= up ? outY + 1 : outY - 1;
-							err <= err + dx;
-						end
-						if(moveX && moveY) begin
-							outX <= right ? outX + 1 : outX - 1;
-							outY <= up ? outY + 1 : outY - 1;
-							err <= err + dx + dy;
+						err <= dx + dy;
+						outX <= startX;
+						outY <= startY;
+					end
+				B: begin
+						//if (outX == checkEndX && outY == checkEndY) isDone <= 1;
+						if ((~moveX && ~moveY) || (outX == endX && outY == endY)) isDone <= 1;
+						else begin
+							if(moveX) begin
+								outX <= right ? outX + 1 : outX - 1;
+								err <= err + dy;
+							end
+							if(moveY) begin
+								outY <= up ? outY + 1 : outY - 1;
+								err <= err + dx;
+							end
+							if(moveX && moveY) begin
+								outX <= right ? outX + 1 : outX - 1;
+								outY <= up ? outY + 1 : outY - 1;
+								err <= err + dx + dy;
+							end
 						end
 					end
-				end
-		endcase
+				C: isDone <= 0;
+			endcase
+		end
+		
 	end
-	
 endmodule
 
 module shapeTypeLUT (
@@ -374,8 +414,8 @@ always @(*) begin
         default: begin
             
             v0 <= {16'h0, 16'h0, 16'h0330};
-				v1 <= {16'hFFFF, 16'hFDBF, 16'hFCD0};
-            v2 <= {16'h0001, 16'hFDBF, 16'hFCD0};
+				v1 <= {16'hFC18, 16'hFDBF, 16'hFCD0};
+            v2 <= {16'h03E8, 16'hFDBF, 16'hFCD0};
 				v3 <= {16'h0, 16'h0483, 16'hFCD0};
             v4 <= 48'b0;
             v5 <= 48'b0;
