@@ -74,7 +74,7 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     input clock, resetn;
     input [2:0] inputColour;
     output reg [2:0] drawColour;
-    output [8:0] drawX, drawY;
+    output reg [8:0] drawX, drawY;
     output reg WE;
 
     wire [47:0] w0;
@@ -122,11 +122,23 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     reg [10:0] currentStartX, currentStartY, currentEndX, currentEndY;
     reg activate;
 	 reg enableSingleRotation;
+	 wire DR;
 
     shapeTypeLUT s0(shapeselect, w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, numVerticies);
-    connectVerticies c0(activate, clock, resetn, currentStartX, currentStartY, currentEndX, currentEndY, drawX, drawY, DC);
-	 incrementalRotation i0(enableSingleRotation, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, u0, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11);
+	 
+	 wire [8:0] cX, cY;
+    connectVerticies c0(activate, clock, resetn, currentStartX, currentStartY, currentEndX, currentEndY, cX, cY, DC);
+	 incrementalRotation i0(enableSingleRotation, clock, resetn, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, u0, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, DR);
     
+	 wire [8:0] bX, bY;
+	 wire DB;
+	 
+	 reg enableBlack;
+	 
+	 reg [31:0] nCycles;
+	 
+	 blackOut b0(clock, resetn, enableBlack, X_SCREEN_PIXELS, Y_SCREEN_PIXELS, bX, bY, DB);
+	 
 	 reg [5:0] y, Y;
     reg [5:0] lastConnectState;
 
@@ -319,9 +331,26 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
 						  activate <= 1;
 						  WE <= 1;
 					 end
+					 25: begin
+						Y <= 0;
+						enableBlack <= 0;
+					 end
+					 26: begin
+						Y <= DB ? 25 : 26;
+					 end
+					 27: begin // Black Out
+						Y<=26;
+						enableBlack <= 1;
+					 end
 					 28: begin
 						Y <= 29;
 						enableSingleRotation <= 1;
+					 end
+					 29: begin
+						Y <= DR ? 30 : 29;
+					 end
+					 30: begin
+						Y <= (nCycles == 833334) ? 27:30;
 						v0 <= u0;
 						v1 <= u1;
 						v2 <= u2;
@@ -334,14 +363,7 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
 						v9 <= u9;
 						v10 <= u10;
 						v11 <= u11;
-					 end
-					 29: begin
-						Y <= 30;
-					 end
-					 30: begin
-						Y <= 0;
 						enableSingleRotation <= 0;
-						
 					 end
 					 31: begin
 						  Y <= 0;
@@ -350,6 +372,7 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
 						  currentStartY <= 0;
 						  WE <= 0;
 						  enableSingleRotation <= 0;
+						  enableBlack <= 0;
 						v0 <= w0;
 						v1 <= w1;
 						v2 <= w2;
@@ -373,6 +396,8 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     always @ (posedge clock) begin
         if (~resetn) begin
             y <= 31;
+				//enableBlack <= 0;
+				nCycles <= 0;
             drawColour <= inputColour;
 
 //            v0 <= w0;
@@ -388,13 +413,28 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
 //            v10 <= w10;
 //            v11 <= w11;
 
-        end else y <= Y;
+        end else begin
+			y <= Y;
+			
+			if(y==0) nCycles <=0;
+			if(y==30) nCycles <= nCycles + 1;
+			
+			if(enableBlack)begin
+				drawX <= bX;
+				drawY <= bY;
+				drawColour <= 0;
+			end else begin
+				drawX <= cX;
+				drawY <= cY;
+				drawColour <= inputColour;
+			end
+		  end
     end
 
 endmodule
 
 module incrementalRotation(
-	 input enable,
+	 input enable, clk, rst,
     input [47:0] v0,
     input [47:0] v1,
     input [47:0] v2,
@@ -418,38 +458,223 @@ module incrementalRotation(
     output reg [47:0] u8,
     output reg [47:0] u9,
     output reg [47:0] u10,
-    output reg [47:0] u11
+    output reg [47:0] u11,
+	 output reg done
 );
 
-always@(*) begin
-	if(enable) begin
-	 u0 <= {(511*v0[47:32] - 10*v0[31:16])>>9,(10*v0[47:32] + 511*v0[31:16] - 5*v0[15:0])>>9,(v0[47:32] + 5*v0[31:16] + 512*v0[15:0])>>9};
-    u1 <= {(511*v1[47:32] - 10*v1[31:16])>>9,(10*v1[47:32] + 511*v1[31:16] - 5*v1[15:0])>>9,(v1[47:32] + 5*v1[31:16] + 512*v1[15:0])>>9};
-    u2 <= {(511*v2[47:32] - 10*v2[31:16])>>9,(10*v2[47:32] + 511*v2[31:16] - 5*v2[15:0])>>9,(v2[47:32] + 5*v2[31:16] + 512*v2[15:0])>>9};
-    u3 <= {(511*v3[47:32] - 10*v3[31:16])>>9,(10*v3[47:32] + 511*v3[31:16] - 5*v3[15:0])>>9,(v3[47:32] + 5*v3[31:16] + 512*v3[15:0])>>9};
-    u4 <= {(511*v4[47:32] - 10*v4[31:16])>>9,(10*v4[47:32] + 511*v4[31:16] - 5*v4[15:0])>>9,(v4[47:32] + 5*v4[31:16] + 512*v4[15:0])>>9};
-    u5 <= {(511*v5[47:32] - 10*v5[31:16])>>9,(10*v5[47:32] + 511*v5[31:16] - 5*v5[15:0])>>9,(v5[47:32] + 5*v5[31:16] + 512*v5[15:0])>>9};
-    u6 <= {(511*v6[47:32] - 10*v6[31:16])>>9,(10*v6[47:32] + 511*v6[31:16] - 5*v6[15:0])>>9,(v6[47:32] + 5*v6[31:16] + 512*v6[15:0])>>9};
-    u7 <= {(511*v7[47:32] - 10*v7[31:16])>>9,(10*v7[47:32] + 511*v7[31:16] - 5*v7[15:0])>>9,(v7[47:32] + 5*v7[31:16] + 512*v7[15:0])>>9};
-    u8 <= {(511*v8[47:32] - 10*v8[31:16])>>9,(10*v8[47:32] + 511*v8[31:16] - 5*v8[15:0])>>9,(v8[47:32] + 5*v8[31:16] + 512*v8[15:0])>>9};
-    u9 <= {(511*v9[47:32] - 10*v9[31:16])>>9,(10*v9[47:32] + 511*v9[31:16] - 5*v9[15:0])>>9,(v9[47:32] + 5*v9[31:16] + 512*v9[15:0])>>9};
-    u10 <= {(511*v10[47:32] - 10*v10[31:16])>>9,(10*v10[47:32] + 511*v10[31:16] - 5*v10[15:0])>>9,(v10[47:32] + 5*v10[31:16] + 512*v10[15:0])>>9};
-    u11 <= {(511*v11[47:32] - 10*v11[31:16])>>9,(10*v11[47:32] + 511*v11[31:16] - 5*v11[15:0])>>9,(v11[47:32] + 5*v11[31:16] + 512*v11[15:0])>>9};
-	end else begin
-	 u0 <= v0;
-	 u1 <= v1;
-	 u2 <= v2;
-	 u3 <= v3;
-	 u4 <= v4;
-	 u5 <= v5;
-	 u6 <= v6;
-	 u7 <= v7;
-	 u8 <= v8;
-	 u9 <= v9;
-	 u10 <= v10;
-    u11 <= v11;
+	reg signed [15:0] xv0;
+	reg signed [15:0] xv1;
+	reg signed [15:0] xv2;
+	reg signed [15:0] xv3;
+	reg signed [15:0] xv4;
+	reg signed [15:0] xv5;
+	reg signed [15:0] xv6;
+	reg signed [15:0] xv7;
+	reg signed [15:0] xv8;
+	reg signed [15:0] xv9;
+	reg signed [15:0] xv10;
+	reg signed [15:0] xv11;
+	
+	reg signed [15:0] yv0;
+	reg signed [15:0] yv1;
+	reg signed [15:0] yv2;
+	reg signed [15:0] yv3;
+	reg signed [15:0] yv4;
+	reg signed [15:0] yv5;
+	reg signed [15:0] yv6;
+	reg signed [15:0] yv7;
+	reg signed [15:0] yv8;
+	reg signed [15:0] yv9;
+	reg signed [15:0] yv10;
+	reg signed [15:0] yv11;
+	
+	reg signed [15:0] zv0;
+	reg signed [15:0] zv1;
+	reg signed [15:0] zv2;
+	reg signed [15:0] zv3;
+	reg signed [15:0] zv4;
+	reg signed [15:0] zv5;
+	reg signed [15:0] zv6;
+	reg signed [15:0] zv7;
+	reg signed [15:0] zv8;
+	reg signed [15:0] zv9;
+	reg signed [15:0] zv10;
+	reg signed [15:0] zv11;
+	
+	reg [2:0] y, Y;
+	
+	always@(*) begin
+		
+		case(y)
+			0: begin 
+				Y <= enable ? 1 : 0;
+				u0 <= v0;
+				u1 <= v1;
+				u2 <= v2;
+				u3 <= v3;
+				u4 <= v4;
+				u5 <= v5;
+				u6 <= v6;
+				u7 <= v7;
+				u8 <= v8;
+				u9 <= v9;
+				u10 <= v10;
+				u11 <= v11;
+			end
+			1: begin
+				Y <= 2;
+				
+//				xv0 <= v0[47:32];
+//				xv1 <= v1[47:32];
+//				xv2 <= v2[47:32];
+//				xv3 <= v3[47:32];
+//				xv4 <= v4[47:32];
+//				xv5 <= v5[47:32];
+//				xv6 <= v6[47:32];
+//				xv7 <= v7[47:32];
+//				xv8 <= v8[47:32];
+//				xv9 <= v9[47:32];
+//				xv10 <= v10[47:32];
+//				xv11 <= v11[47:32];
+//				
+//				yv0 <= v0[31:16];
+//				yv1 <= v1[31:16];
+//				yv2 <= v2[31:16];
+//				yv3 <= v3[31:16];
+//				yv4 <= v4[31:16];
+//				yv5 <= v5[31:16];
+//				yv6 <= v6[31:16];
+//				yv7 <= v7[31:16];
+//				yv8 <= v8[31:16];
+//				yv9 <= v9[31:16];
+//				yv10 <= v10[31:16];
+//				yv11 <= v11[31:16];
+//				
+//				zv0 <= v0[15:0];
+//				zv1 <= v1[15:0];
+//				zv2 <= v2[15:0];
+//				zv3 <= v3[15:0];
+//				zv4 <= v4[15:0];
+//				zv5 <= v5[15:0];
+//				zv6 <= v6[15:0];
+//				zv7 <= v7[15:0];
+//				zv8 <= v8[15:0];
+//				zv9 <= v9[15:0];
+//				zv10 <= v10[15:0];
+//				zv11 <= v11[15:0];
+				
+				yv0 <= v0[47:32];
+				yv1 <= v1[47:32];
+				yv2 <= v2[47:32];
+				yv3 <= v3[47:32];
+				yv4 <= v4[47:32];
+				yv5 <= v5[47:32];
+				yv6 <= v6[47:32];
+				yv7 <= v7[47:32];
+				yv8 <= v8[47:32];
+				yv9 <= v9[47:32];
+				yv10 <= v10[47:32];
+				yv11 <= v11[47:32];
+				
+				xv0 <= 0 - v0[31:16];
+				xv1 <= 0 - v1[31:16];
+				xv2 <= 0 - v2[31:16];
+				xv3 <= 0 - v3[31:16];
+				xv4 <= 0 - v4[31:16];
+				xv5 <= 0 - v5[31:16];
+				xv6 <= 0 - v6[31:16];
+				xv7 <= 0 - v7[31:16];
+				xv8 <= 0 - v8[31:16];
+				xv9 <= 0 - v9[31:16];
+				xv10 <= 0 - v10[31:16];
+				xv11 <= 0 - v11[31:16];
+				
+//				xv0 <= (511*v0[47:32] - 10*v0[31:16])>>9;
+//				xv1 <= (511*v1[47:32] - 10*v1[31:16])>>9;
+//				xv2 <= (511*v2[47:32] - 10*v2[31:16])>>9;
+//				xv3 <= (511*v3[47:32] - 10*v3[31:16])>>9;
+//				xv4 <= (511*v4[47:32] - 10*v4[31:16])>>9;
+//				xv5 <= (511*v5[47:32] - 10*v5[31:16])>>9;
+//				xv6 <= (511*v6[47:32] - 10*v6[31:16])>>9;
+//				xv7 <= (511*v7[47:32] - 10*v7[31:16])>>9;
+//				xv8 <= (511*v8[47:32] - 10*v8[31:16])>>9;
+//				xv9 <= (511*v9[47:32] - 10*v9[31:16])>>9;
+//				xv10 <= (511*v10[47:32] - 10*v10[31:16])>>9;
+//				xv11 <= (511*v11[47:32] - 10*v11[31:16])>>9;
+//				
+//				yv0 <= (10*v0[47:32] + 511*v0[31:16] - 5*v0[15:0])>>9;
+//				yv1 <= (10*v1[47:32] + 511*v1[31:16] - 5*v1[15:0])>>9;
+//				yv2 <= (10*v2[47:32] + 511*v2[31:16] - 5*v2[15:0])>>9;
+//				yv3 <= (10*v3[47:32] + 511*v3[31:16] - 5*v3[15:0])>>9;
+//				yv4 <= (10*v4[47:32] + 511*v4[31:16] - 5*v4[15:0])>>9;
+//				yv5 <= (10*v5[47:32] + 511*v5[31:16] - 5*v5[15:0])>>9;
+//				yv6 <= (10*v6[47:32] + 511*v6[31:16] - 5*v6[15:0])>>9;
+//				yv7 <= (10*v7[47:32] + 511*v7[31:16] - 5*v7[15:0])>>9;
+//				yv8 <= (10*v8[47:32] + 511*v8[31:16] - 5*v8[15:0])>>9;
+//				yv9 <= (10*v9[47:32] + 511*v9[31:16] - 5*v9[15:0])>>9;
+//				yv10 <= (10*v10[47:32] + 511*v10[31:16] - 5*v10[15:0])>>9;
+//				yv11 <= (10*v11[47:32] + 511*v11[31:16] - 5*v11[15:0])>>9;
+//				
+////				zv0 <= (v0[47:32] + 5*v0[31:16] + 511*v0[15:0])>>9;
+////				zv1 <= (v1[47:32] + 5*v1[31:16] + 511*v1[15:0])>>9;
+////				zv2 <= (v2[47:32] + 5*v2[31:16] + 511*v2[15:0])>>9;
+////				zv3 <= (v3[47:32] + 5*v3[31:16] + 511*v3[15:0])>>9;
+////				zv4 <= (v4[47:32] + 5*v4[31:16] + 511*v4[15:0])>>9;
+////				zv5 <= (v5[47:32] + 5*v5[31:16] + 511*v5[15:0])>>9;
+////				zv6 <= (v6[47:32] + 5*v6[31:16] + 511*v6[15:0])>>9;
+////				zv7 <= (v7[47:32] + 5*v7[31:16] + 511*v7[15:0])>>9;
+////				zv8 <= (v8[47:32] + 5*v8[31:16] + 511*v8[15:0])>>9;
+////				zv9 <= (v9[47:32] + 5*v9[31:16] + 511*v9[15:0])>>9;
+////				zv10 <= (v10[47:32] + 5*v10[31:16] + 511*v10[15:0])>>9;
+////				zv11 <= (v11[47:32] + 5*v11[31:16] + 511*v11[15:0])>>9;
+//				zv0 <= (5*v0[31:16] + 511*v0[15:0])>>9;
+//				zv1 <= (5*v1[31:16] + 511*v1[15:0])>>9;
+//				zv2 <= (5*v2[31:16] + 511*v2[15:0])>>9;
+//				zv3 <= (5*v3[31:16] + 511*v3[15:0])>>9;
+//				zv4 <= (5*v4[31:16] + 511*v4[15:0])>>9;
+//				zv5 <= (5*v5[31:16] + 511*v5[15:0])>>9;
+//				zv6 <= (5*v6[31:16] + 511*v6[15:0])>>9;
+//				zv7 <= (5*v7[31:16] + 511*v7[15:0])>>9;
+//				zv8 <= (5*v8[31:16] + 511*v8[15:0])>>9;
+//				zv9 <= (5*v9[31:16] + 511*v9[15:0])>>9;
+//				zv10 <= (5*v10[31:16] + 511*v10[15:0])>>9;
+//				zv11 <= (5*v11[31:16] + 511*v11[15:0])>>9;
+			end
+			2: begin
+				Y <= enable ? 2 : 0;
+				u0 <= {xv0,yv0,zv0};
+				 u1 <= {xv1,yv1,zv1};
+				 u2 <= {xv2,yv2,zv2};
+				 u3 <= {xv3,yv3,zv3};
+				 u4 <= {xv4,yv4,zv4};
+				 u5 <= {xv5,yv5,zv5};
+				 u6 <= {xv6,yv6,zv6};
+				 u7 <= {xv7,yv7,zv7};
+				 u8 <= {xv8,yv8,zv8};
+				 u9 <= {xv9,yv9,zv9};
+				 u10 <= {xv10,yv10,zv10};
+				 u11 <= {xv11,yv11,zv11};
+				 
+			end	
+		endcase
+		
 	end
-end
+	
+	always@(posedge clk)begin
+		if(~rst) begin
+			done <= 0;
+			y <= 0;
+
+		end else begin
+			y <= Y;
+			if (y==0) begin
+				done <= 0;
+			end
+			if (y==2) begin
+				done <= 1;
+			end
+		end
+	end
 
 endmodule
 
@@ -458,20 +683,20 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 	input clk, rst, go;
 	
 	input [9:0] startX, startY, endX, endY;
-	reg [9:0] x0, y0, x1, y1;
+	reg [10:0] x0, y0, x1, y1;
 	
-	output reg [8:0] outX, outY;
+	output reg [10:0] outX, outY;
 	output reg done;
 	reg isDone;
 	
 	parameter [2:0] A = 3'b000, B = 3'b001, C = 3'b010, D = 3'b011, E = 3'b100;
 	reg [2:0] Y, y; // NEXT, CURRENT STATE
 	
-	wire signed [9:0] dx, dy;  
+	wire signed [10:0] dx, dy;
 	assign dx = endX - startX;
 	assign dy = endY - startY;
 	
-	reg signed [9:0] deltaX, deltaY;
+	reg signed [10:0] deltaX, deltaY;
 	
 	wire up, right;
 	assign up = dy >= 0;
@@ -486,7 +711,7 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 		if(!(startY > endY))begin
 			y0 = startY;
 			y1 = endY;
-			x0 = startX;
+			x0 = startX ;
 			x1 = endX;
 		end else begin
 			y1 = startY;
@@ -560,59 +785,56 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 	end
 endmodule
 
-//module XYIncrement(clock, resetn, enabled, initX, initY, maxX, maxY, outX, outY, done);
-//
-//        input clock, resetn, enabled;
-//        input [7:0] initX;
-//        input [6:0] initY;
-//        input [7:0] maxX;
-//        input [6:0] maxY;
-//        output reg [7:0] outX;
-//        output reg [6:0] outY;
-//        output reg done;
-//
-//        reg [1:0] y, Y;
-//
-//        always@(*) begin
-//
-//                case(y)
-//                 0: if (enabled) Y=1; else Y=0;
-//                 1: Y=2;
-//                 2: if (done) Y=0; else Y=2;
-//                endcase
-//
-//        end
-//
-//        always@(posedge clock) begin
-//
-//                if(!resetn) begin
-//                        y = 0;
-//                        done <= 1'b0;
-//
-//                end
-//                else y=Y;
-//
-//                case(y)
-//                        0: begin
-//                                outX <= initX;
-//                                outY <= initY;
-//                        end
-//                        1: begin
-//                                outX <= initX;
-//                                outY <= initY;
-//                                done <= 1'b0;
-//                        end
-//                        2: begin
-//                                if (outY != (maxY + initY) | outX != (maxX + initX)) begin
-//                                        if (outX != (maxX + initX)) outX <= outX + 8'd1;
-//                                        else begin
-//                                                outX <= initX;
-//                                                outY <= outY + 7'd1;
-//                                        end
-//                                end else done <= 1'b1;
-//                        end
-//                endcase
-//
-//        end
-//
-//endmodule
+module blackOut(clock, resetn, enabled, maxX, maxY, outX, outY, done);
+
+        input clock, resetn, enabled;
+        input [8:0] maxX;
+        input [8:0] maxY;
+        output reg [8:0] outX;
+        output reg [8:0] outY;
+        output reg done;
+
+        reg [1:0] y, Y;
+
+        always@(*) begin
+
+                case(y)
+                 0: if (enabled) Y=1; else Y=0;
+                 1: Y=2;
+                 2: if (done) Y=0; else Y=2;
+                endcase
+
+        end
+
+        always@(posedge clock) begin
+
+                if(~resetn) begin
+                        y = 0;
+                        done <= 0;
+
+                end
+                else y=Y;
+
+                case(y)
+                        0: begin
+                                outX <= 0;
+                                outY <= 0;
+										  done <= 0;
+                        end
+                        1: begin
+                                done <= 0;
+                        end
+                        2: begin
+                                if (outY != maxY | outX != maxX) begin
+                                        if (outX != maxX) outX <= outX + 1;
+                                        else begin
+                                                outX <= 0;
+                                                outY <= outY + 1;
+                                        end
+                                end else done <= 1;
+                        end
+                endcase
+
+        end
+
+endmodule

@@ -1,4 +1,16 @@
 
+State Machine - |gpu|decodeAndMap:d0|blackOut:b0|y
+Name y.00 y.10 y.01 
+y.00 0 0 0 
+y.01 1 0 1 
+y.10 1 1 0 
+
+State Machine - |gpu|decodeAndMap:d0|incrementalRotation:i0|y
+Name y.000 y.010 y.001 
+y.000 0 0 0 
+y.001 1 0 1 
+y.010 1 1 0 
+
 State Machine - |gpu|decodeAndMap:d0|connectVerticies:c0|y
 Name y.D y.C y.B y.A 
 y.A 0 0 0 0 

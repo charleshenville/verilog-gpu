@@ -8,32 +8,53 @@ z2
 !i10f 100
 cModel Technology
 dC:/Users/zha13148/verilog-gpu/src
-vconnectVerticies
-Z0 !s110 1701201344
+vblackOut
+Z0 !s110 1701328694
 !i10b 1
-!s100 X``KW>Yf;FX[6I2?b_Gf01
-I9NKoGBfCDG?ajlZm0BD?P2
+!s100 P1aYeg09?6ChZ83bM^TJC3
+IeHbIlKO1Z@cQhYk>Y6^Ze2
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 Z2 dC:/Users/henvill1/verilog-gpu/src
-Z3 w1701200934
+Z3 w1701328636
 Z4 8gpu.v
 Z5 Fgpu.v
-L0 456
+L0 792
 Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1701201344.000000
+Z7 !s108 1701328694.000000
 Z8 !s107 gpu.v|
 Z9 !s90 -reportprogress|300|gpu.v|
 !i113 1
 Z10 tCvgOpt 0
+nblack@out
+vconnectVerticies
+R0
+!i10b 1
+!s100 hNY;malG=CW5QLXX8@lYo3
+IjC9IFPhb71AVSLNa07iGo1
+R1
+R2
+R3
+R4
+R5
+L0 685
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
 nconnect@verticies
 vdecodeAndMap
 R0
 !i10b 1
-!s100 b0agNh@lfJV^4:n;4_^@73
-ISJjAm9JlT`^E1_l]LO1?R2
+!s100 zEFOeh7?EXUXEgR^M?OLl2
+IQC_Y_inb`K?=ESI^XL]^V1
 R1
 R2
 R3
@@ -73,14 +94,14 @@ R10
 vincrementalRotation
 R0
 !i10b 1
-!s100 J]aM4BPHg^cFH46URD[MP3
-IbB7?dUkl8gno@Wc<0Yl_m2
+!s100 gK_ggh1[d184ccEY2o1JO3
+I_XOC?T3?>A:LEL0gDLQm@1
 R1
 R2
 R3
 R4
 R5
-L0 396
+L0 440
 R6
 r1
 !s85 0
