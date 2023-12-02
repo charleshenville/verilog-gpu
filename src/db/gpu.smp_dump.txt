@@ -6,10 +6,13 @@ y.01 1 0 1
 y.10 1 1 0 
 
 State Machine - |gpu|decodeAndMap:d0|incrementalRotation:i0|y
-Name y.000 y.010 y.001 
-y.000 0 0 0 
-y.001 1 0 1 
-y.010 1 1 0 
+Name y.0101 y.0100 y.0011 y.0010 y.0001 y.0000 
+y.0000 0 0 0 0 0 0 
+y.0001 0 0 0 0 1 1 
+y.0010 0 0 0 1 0 1 
+y.0011 0 0 1 0 0 1 
+y.0100 0 1 0 0 0 1 
+y.0101 1 0 0 0 0 1 
 
 State Machine - |gpu|decodeAndMap:d0|connectVerticies:c0|y
 Name y.D y.C y.B y.A 

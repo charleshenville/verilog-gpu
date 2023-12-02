@@ -1,5 +1,5 @@
 Flow report for gpu
-Thu Nov 30 04:17:14 2023
+Sat Dec 02 06:11:32 2023
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 
 
@@ -40,15 +40,15 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Flow Summary                                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Flow Status                     ; Successful - Thu Nov 30 04:17:06 2023           ;
+; Flow Status                     ; Successful - Sat Dec 02 06:11:20 2023           ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Standard Edition ;
 ; Revision Name                   ; gpu                                             ;
 ; Top-level Entity Name           ; gpu                                             ;
 ; Family                          ; Cyclone V                                       ;
 ; Device                          ; 5CSEMA5F31C6                                    ;
 ; Timing Models                   ; Final                                           ;
-; Logic utilization (in ALMs)     ; 874 / 32,070 ( 3 % )                            ;
-; Total registers                 ; 159                                             ;
+; Logic utilization (in ALMs)     ; 2,251 / 32,070 ( 7 % )                          ;
+; Total registers                 ; 1917                                            ;
 ; Total pins                      ; 44 / 457 ( 10 % )                               ;
 ; Total virtual pins              ; 0                                               ;
 ; Total block memory bits         ; 230,400 / 4,065,280 ( 6 % )                     ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/30/2023 04:14:52 ;
+; Start date & time ; 12/02/2023 06:09:11 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; gpu                 ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 93181000666178.170133569208264         ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 93181000666147.170151535101152         ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
@@ -95,11 +95,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:12     ; 1.0                     ; 4878 MB             ; 00:00:21                           ;
-; Fitter               ; 00:01:55     ; 1.1                     ; 6977 MB             ; 00:04:30                           ;
-; Assembler            ; 00:00:06     ; 1.0                     ; 4856 MB             ; 00:00:06                           ;
-; Timing Analyzer      ; 00:00:07     ; 1.7                     ; 5236 MB             ; 00:00:10                           ;
-; Total                ; 00:02:20     ; --                      ; --                  ; 00:05:07                           ;
+; Analysis & Synthesis ; 00:00:15     ; 1.0                     ; 4901 MB             ; 00:00:26                           ;
+; Fitter               ; 00:01:43     ; 1.2                     ; 6924 MB             ; 00:06:34                           ;
+; Assembler            ; 00:00:08     ; 1.0                     ; 4875 MB             ; 00:00:08                           ;
+; Timing Analyzer      ; 00:00:11     ; 2.4                     ; 5278 MB             ; 00:00:22                           ;
+; Total                ; 00:02:17     ; --                      ; --                  ; 00:07:30                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -108,10 +108,10 @@ refer to the applicable agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; BA3135WS29       ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter               ; BA3135WS29       ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler            ; BA3135WS29       ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer      ; BA3135WS29       ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; BA3135WS11       ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter               ; BA3135WS11       ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler            ; BA3135WS11       ; Windows 10 ; 10.0       ; x86_64         ;
+; Timing Analyzer      ; BA3135WS11       ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 

@@ -969,7 +969,7 @@ module incrementalRotation(
 	
 	reg [3:0] y, Y;
 	
-	parameter alpha = 1024;
+	parameter alpha = 1023;
 	parameter beta = 32;
 	
 	always@(*) begin

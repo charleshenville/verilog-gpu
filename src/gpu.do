@@ -11,6 +11,9 @@ add wave {/i0/*}
 
 force {clock} 0, 1 10ns -r 20ns
 force {resetn} 0, 1 20ns
-force {shapeselect} 0
+force {shapeselect} 1
 force {inputColour} 1
+force {rotateX} 0
+force {rotateY} 1
+force {rotateZ} 0
 run 50000ns
