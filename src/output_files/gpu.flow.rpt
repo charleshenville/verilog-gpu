@@ -1,5 +1,5 @@
 Flow report for gpu
-Sat Dec 02 06:11:32 2023
+Sun Dec 03 04:24:11 2023
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 
 
@@ -40,19 +40,19 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Flow Summary                                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Flow Status                     ; Successful - Sat Dec 02 06:11:20 2023           ;
+; Flow Status                     ; Successful - Sun Dec 03 04:23:59 2023           ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Standard Edition ;
 ; Revision Name                   ; gpu                                             ;
 ; Top-level Entity Name           ; gpu                                             ;
 ; Family                          ; Cyclone V                                       ;
 ; Device                          ; 5CSEMA5F31C6                                    ;
 ; Timing Models                   ; Final                                           ;
-; Logic utilization (in ALMs)     ; 2,251 / 32,070 ( 7 % )                          ;
-; Total registers                 ; 1917                                            ;
-; Total pins                      ; 44 / 457 ( 10 % )                               ;
+; Logic utilization (in ALMs)     ; 2,608 / 32,070 ( 8 % )                          ;
+; Total registers                 ; 1936                                            ;
+; Total pins                      ; 86 / 457 ( 19 % )                               ;
 ; Total virtual pins              ; 0                                               ;
-; Total block memory bits         ; 230,400 / 4,065,280 ( 6 % )                     ;
-; Total DSP Blocks                ; 0 / 87 ( 0 % )                                  ;
+; Total block memory bits         ; 460,800 / 4,065,280 ( 11 % )                    ;
+; Total DSP Blocks                ; 36 / 87 ( 41 % )                                ;
 ; Total HSSI RX PCSs              ; 0                                               ;
 ; Total HSSI PMA RX Deserializers ; 0                                               ;
 ; Total HSSI TX PCSs              ; 0                                               ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 12/02/2023 06:09:11 ;
+; Start date & time ; 12/03/2023 04:22:04 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; gpu                 ;
 +-------------------+---------------------+
@@ -78,7 +78,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
 +-------------------------------------+----------------------------------------+---------------+-------------+------------+
-; COMPILER_SIGNATURE_ID               ; 93181000666147.170151535101152         ; --            ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 93181000666147.170159532410364         ; --            ; --          ; --         ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
 ; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
@@ -95,11 +95,11 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:15     ; 1.0                     ; 4901 MB             ; 00:00:26                           ;
-; Fitter               ; 00:01:43     ; 1.2                     ; 6924 MB             ; 00:06:34                           ;
-; Assembler            ; 00:00:08     ; 1.0                     ; 4875 MB             ; 00:00:08                           ;
-; Timing Analyzer      ; 00:00:11     ; 2.4                     ; 5278 MB             ; 00:00:22                           ;
-; Total                ; 00:02:17     ; --                      ; --                  ; 00:07:30                           ;
+; Analysis & Synthesis ; 00:00:14     ; 1.0                     ; 4929 MB             ; 00:00:24                           ;
+; Fitter               ; 00:01:28     ; 1.2                     ; 6962 MB             ; 00:05:52                           ;
+; Assembler            ; 00:00:08     ; 1.0                     ; 4898 MB             ; 00:00:08                           ;
+; Timing Analyzer      ; 00:00:10     ; 2.4                     ; 5305 MB             ; 00:00:23                           ;
+; Total                ; 00:02:00     ; --                      ; --                  ; 00:06:47                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

@@ -16,4 +16,5 @@ force {inputColour} 1
 force {rotateX} 0
 force {rotateY} 1
 force {rotateZ} 0
+force {invert} 0
 run 50000ns

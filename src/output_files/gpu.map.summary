@@ -1,14 +1,14 @@
-Analysis & Synthesis Status : Successful - Sat Dec 02 06:09:26 2023
+Analysis & Synthesis Status : Successful - Sun Dec 03 04:22:19 2023
 Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 Revision Name : gpu
 Top-level Entity Name : gpu
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 1907
-Total pins : 44
+Total registers : 1932
+Total pins : 86
 Total virtual pins : 0
-Total block memory bits : 230,400
-Total DSP Blocks : 0
+Total block memory bits : 460,800
+Total DSP Blocks : 36
 Total HSSI RX PCSs : 0
 Total HSSI PMA RX Deserializers : 0
 Total HSSI TX PCSs : 0

@@ -3,6 +3,7 @@ module gpu (
                 CLOCK_50,
                 SW,
                 KEY,
+					 HEX0,HEX1,HEX2,HEX3,HEX4,HEX5,
                 VGA_CLK,
                 VGA_HS,
                 VGA_VS,
@@ -16,6 +17,7 @@ module gpu (
         input CLOCK_50;
         input [3:0] KEY;
         input [9:0] SW;
+		  output [6:0] HEX0,HEX1,HEX2,HEX3,HEX4,HEX5;
         output VGA_CLK;
         output VGA_HS;
         output VGA_VS;
@@ -40,7 +42,7 @@ module gpu (
                         .x(x),
                         .y(y),
                         .plot(writeEn),
-								
+								.DS(DS),
                         .VGA_R(VGA_R),
                         .VGA_G(VGA_G),
                         .VGA_B(VGA_B),
@@ -49,21 +51,45 @@ module gpu (
                         .VGA_BLANK(VGA_BLANK_N),
                         .VGA_SYNC(VGA_SYNC_N),
 								.VGA_CLK(VGA_CLK));
+								
 					 defparam VGA.RESOLUTION = "320x240";
                 defparam VGA.MONOCHROME = "FALSE";
                 defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
                 defparam VGA.BACKGROUND_IMAGE = "black.mif";
 			
-			decodeAndMap d0 (x, y, colour, writeEn, resetn, CLOCK_50, SW[1:0], SW[4:2], VGA_VS, ~KEY[3], ~KEY[2], ~KEY[1]);
+			wire DS;
+			wire [7:0] pitch, roll, yaw;
+			decodeAndMap d0 (x, y, colour, writeEn, resetn, CLOCK_50, SW[1:0], SW[4:2], VGA_VS, ~KEY[3], ~KEY[2], ~KEY[1], SW[9], pitch, roll, yaw, DS);
+			hex_decoder h5 (pitch[7:4], HEX5);
+			hex_decoder h4 (pitch[3:0], HEX4);
+			hex_decoder h3 (roll[7:4], HEX3);
+			hex_decoder h2 (roll[3:0], HEX2);
+			hex_decoder h1 (yaw[7:4], HEX1);
+			hex_decoder h0 (yaw[3:0], HEX0);
 
 endmodule
 
-module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, inputColour, vs_n, rotateX, rotateY, rotateZ);
+module hex_decoder(c, display);
+
+	input [3:0] c;
+	output [6:0] display;
+	
+	assign display[0] = ~(~(~c[3]&~c[2]&~c[1]&c[0])&~(~c[3]&c[2]&~c[1]&~c[0])&~(c[3]&~c[2]&c[1]&c[0])&~(c[3]&c[2]&~c[1]&c[0]));
+	assign display[1] = ~(~(~c[3]&c[2]&~c[1]&c[0])&~(~c[3]&c[2]&c[1]&~c[0])&~(c[3]&~c[2]&c[1]&c[0])&~(c[3]&c[2]&~c[1]&~c[0])&~(c[3]&c[2]&c[1]&~c[0])&~(c[3]&c[2]&c[1]&c[0]));
+	assign display[2] = ~(~(~c[3]&~c[2]&c[1]&~c[0])&~(c[3]&c[2]&~c[1]&~c[0])&~(c[3]&c[2]&c[1]&~c[0])&~(c[3]&c[2]&c[1]&c[0]));
+	assign display[3] = ~(~(~c[3]&~c[2]&~c[1]&c[0])&~(~c[3]&c[2]&~c[1]&~c[0])&~(~c[3]&c[2]&c[1]&c[0])&~(c[3]&~c[2]&c[1]&~c[0])&~(c[3]&c[2]&c[1]&c[0]));
+	assign display[4] = ~(~(~c[3]&~c[2]&~c[1]&c[0])&~(~c[3]&~c[2]&c[1]&c[0])&~(~c[3]&c[2]&~c[1]&~c[0])&~(~c[3]&c[2]&~c[1]&c[0])&~(~c[3]&c[2]&c[1]&c[0])&~(c[3]&~c[2]&~c[1]&c[0]));
+	assign display[5] = ~(~(~c[3]&~c[2]&~c[1]&c[0])&~(~c[3]&~c[2]&c[1]&~c[0])&~(~c[3]&~c[2]&c[1]&c[0])&~(~c[3]&c[2]&c[1]&c[0])&~(c[3]&c[2]&~c[1]&c[0]));
+	assign display[6] = ~(~(~c[3]&~c[2]&~c[1]&~c[0])&~(~c[3]&~c[2]&~c[1]&c[0])&~(~c[3]&c[2]&c[1]&c[0])&~(c[3]&c[2]&~c[1]&~c[0]));
+
+endmodule
+
+module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, inputColour, vs_n, rotateX, rotateY, rotateZ, invert, pitch, roll, yaw, doneShape);
 
     parameter X_SCREEN_PIXELS = 9'd320;
     parameter Y_SCREEN_PIXELS = 8'd240;
 		
-	 input vs_n;
+	 input vs_n, invert;
 	 reg lvs_n;
     input [1:0] shapeselect;
     input clock, resetn, rotateX, rotateY, rotateZ;
@@ -71,6 +97,8 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     output reg [2:0] drawColour;
     output reg [8:0] drawX, drawY;
     output reg WE;
+	 
+	 output [7:0] pitch, roll, yaw;
 
     wire [47:0] w0;
     wire [47:0] w1;
@@ -114,7 +142,7 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     wire [47:0] u10;
     wire [47:0] u11;
 
-    reg [10:0] currentStartX, currentStartY, currentEndX, currentEndY;
+    reg [8:0] currentStartX, currentStartY, currentEndX, currentEndY;
     reg activate;
 	 reg enableSingleRotation;
 	 wire DR;
@@ -122,8 +150,8 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     shapeTypeLUT s0(shapeselect, w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, numVerticies);
 	 
 	 wire [8:0] cX, cY;
-    connectVerticies c0(activate, clock, resetn, currentStartX, currentStartY, currentEndX, currentEndY, cX, cY, DC);
-	 incrementalRotation i0(enableSingleRotation, clock, resetn, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, u0, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, DR, rotateX, rotateY, rotateZ);
+    connectVerticies c0(activate, clock, resetn, currentStartX, currentStartY, currentEndX, currentEndY, cX, cY, DC, shapeChanged);
+	 incrementalRotation i0(enableSingleRotation, clock, resetn, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, u0, u1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11, DR, rotateX, rotateY, rotateZ, shapeChanged, invert, pitch, roll, yaw);
     
 	 wire [8:0] bX, bY;
 	 wire DB;
@@ -132,10 +160,16 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
 	 
 	 reg [31:0] nCycles;
 	 
-	 blackOut b0(clock, resetn, enableBlack, X_SCREEN_PIXELS, Y_SCREEN_PIXELS, bX, bY, DB);
+	 blackOut b0(clock, resetn, enableBlack, X_SCREEN_PIXELS, Y_SCREEN_PIXELS, bX, bY, DB, shapeChanged);
 	 
 	 reg [5:0] y, Y;
     reg [5:0] lastConnectState;
+	 
+	 output doneShape;
+	 assign doneShape = y == 60; // or try 60
+	 
+	 wire shapeChanged;
+	 detectShapeDelta dtc(shapeselect, clock, resetn, shapeChanged);
 
     always @(*) begin
         case (shapeselect)
@@ -258,7 +292,7 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
     end
 	 
     always @ (posedge clock) begin
-        if (~resetn) begin
+        if (~resetn || shapeChanged) begin
 				y <= 0;
 				nCycles <= 0;
             drawColour <= inputColour;
@@ -371,9 +405,12 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
 					 58: begin
 						enableBlack <= 0;
 					 end
+					 59: begin
+						WE <= 1;
+					 end
 					 60: begin // Black Out
 						enableBlack <= 1;
-						WE <= 1;
+						//WE <= 1;
 					 end
 					 61: begin
 						enableSingleRotation <= 1;
@@ -884,18 +921,59 @@ module decodeAndMap(drawX, drawY, drawColour, WE, resetn, clock, shapeselect, in
             endcase
 			 end
 			endcase
-			if(enableBlack)begin
+			
+			if ((cX > 150 && cX < 470 && cY > 150 && cY < 390)&&~enableBlack) begin
+				drawX <= cX - 150;
+				drawY <= cY - 150;
+				drawColour <= inputColour;
+			end else if(enableBlack) begin
 				drawX <= bX;
 				drawY <= bY;
 				drawColour <= 0;
 			end else begin
-				drawX <= cX;
-				drawY <= cY;
-				drawColour <= inputColour;
+				drawX <= 0;
+				drawY <= 0;
+				drawColour <= 0;
 			end
-		  end
+		end
     end
 
+endmodule
+
+module detectShapeDelta(
+	input [2:0] shape,
+	input clock, rst,
+	output reg throwShapeChange
+);
+
+ reg [3:0] y, Y;
+ 
+ always@(*) begin
+	case(y)
+		0: begin 
+			Y <= shape+1;
+		end
+		1,2,3,4: begin // idle all.
+			Y <= y==(shape+1) ? y:6;
+		end
+		5: begin // throw a shape change
+			Y <= shape+1;
+		end
+		default: begin // here too
+			Y <= 5;
+		end
+	endcase
+ end
+ always@(posedge clock) begin
+	if(~rst) begin
+		y<=0;
+		throwShapeChange <= 0;
+	end else begin
+		y<=Y;
+		throwShapeChange <= (y>4);
+	end
+ end
+	
 endmodule
 
 module incrementalRotation(
@@ -925,7 +1003,8 @@ module incrementalRotation(
     output reg [47:0] u10,
     output reg [47:0] u11,
 	 output reg done,
-	 input rX, rY, rZ
+	 input rX, rY, rZ, shapeChanged, invert,
+	 output reg [7:0] pitch, roll, yaw
 );
 
 	reg signed [15:0] xv0;
@@ -969,8 +1048,12 @@ module incrementalRotation(
 	
 	reg [3:0] y, Y;
 	
-	parameter alpha = 1023;
-	parameter beta = 32;
+	parameter alpha = 2047;
+	parameter shifter = 11;
+	parameter betapre = 61;
+	
+	wire signed [7:0] beta;
+	assign beta = invert ? (0-betapre) : betapre;
 	
 	always@(*) begin
 		
@@ -998,7 +1081,7 @@ module incrementalRotation(
 	end
 	
 	always@(posedge clk)begin
-		if(~rst) begin
+		if(~rst || shapeChanged) begin
 			done <= 0;
 			y <= 0;
 			u0 <= v0;
@@ -1013,7 +1096,9 @@ module incrementalRotation(
 			u9 <= v9;
 			u10 <= v10;
 			u11 <= v11;
-
+			pitch <= 0; 
+			roll <= 0; 
+			yaw <= 0;
 		end else begin
 			y <= Y;
 			
@@ -1065,92 +1150,98 @@ module incrementalRotation(
 			end
 			2: begin // X
 				if(rX) begin 
-				 yv0 <= (alpha * yv0 - beta * zv0) >> 10;
-				 yv1 <= (alpha * yv1 - beta * zv1) >> 10;
-				 yv2 <= (alpha * yv2 - beta * zv2) >> 10;
-				 yv3 <= (alpha * yv3 - beta * zv3) >> 10;
-				 yv4 <= (alpha * yv4 - beta * zv4) >> 10;
-				 yv5 <= (alpha * yv5 - beta * zv5) >> 10;
-				 yv6 <= (alpha * yv6 - beta * zv6) >> 10;
-				 yv7 <= (alpha * yv7 - beta * zv7) >> 10;
-				 yv8 <= (alpha * yv8 - beta * zv8) >> 10;
-				 yv9 <= (alpha * yv9 - beta * zv9) >> 10;
-				 yv10 <= (alpha * yv10 - beta * zv10) >> 10;
-				 yv11 <= (alpha * yv11 - beta * zv11) >> 10;
+				 yv0 <= (alpha * yv0 - beta * zv0) >> shifter;
+				 yv1 <= (alpha * yv1 - beta * zv1) >> shifter;
+				 yv2 <= (alpha * yv2 - beta * zv2) >> shifter;
+				 yv3 <= (alpha * yv3 - beta * zv3) >> shifter;
+				 yv4 <= (alpha * yv4 - beta * zv4) >> shifter;
+				 yv5 <= (alpha * yv5 - beta * zv5) >> shifter;
+				 yv6 <= (alpha * yv6 - beta * zv6) >> shifter;
+				 yv7 <= (alpha * yv7 - beta * zv7) >> shifter;
+				 yv8 <= (alpha * yv8 - beta * zv8) >> shifter;
+				 yv9 <= (alpha * yv9 - beta * zv9) >> shifter;
+				 yv10 <= (alpha * yv10 - beta * zv10) >> shifter;
+				 yv11 <= (alpha * yv11 - beta * zv11) >> shifter;
 
-				 zv0 <= (beta * yv0 + alpha * zv0) >> 10;
-				 zv1 <= (beta * yv1 + alpha * zv1) >> 10;
-				 zv2 <= (beta * yv2 + alpha * zv2) >> 10;
-				 zv3 <= (beta * yv3 + alpha * zv3) >> 10;
-				 zv4 <= (beta * yv4 + alpha * zv4) >> 10;
-				 zv5 <= (beta * yv5 + alpha * zv5) >> 10;
-				 zv6 <= (beta * yv6 + alpha * zv6) >> 10;
-				 zv7 <= (beta * yv7 + alpha * zv7) >> 10;
-				 zv8 <= (beta * yv8 + alpha * zv8) >> 10;
-				 zv9 <= (beta * yv9 + alpha * zv9) >> 10;
-				 zv10 <= (beta * yv10 + alpha * zv10) >> 10;
-				 zv11 <= (beta * yv11 + alpha * zv11) >> 10;
+				 zv0 <= (beta * yv0 + alpha * zv0) >> shifter;
+				 zv1 <= (beta * yv1 + alpha * zv1) >> shifter;
+				 zv2 <= (beta * yv2 + alpha * zv2) >> shifter;
+				 zv3 <= (beta * yv3 + alpha * zv3) >> shifter;
+				 zv4 <= (beta * yv4 + alpha * zv4) >> shifter;
+				 zv5 <= (beta * yv5 + alpha * zv5) >> shifter;
+				 zv6 <= (beta * yv6 + alpha * zv6) >> shifter;
+				 zv7 <= (beta * yv7 + alpha * zv7) >> shifter;
+				 zv8 <= (beta * yv8 + alpha * zv8) >> shifter;
+				 zv9 <= (beta * yv9 + alpha * zv9) >> shifter;
+				 zv10 <= (beta * yv10 + alpha * zv10) >> shifter;
+				 zv11 <= (beta * yv11 + alpha * zv11) >> shifter;
+				 
+				 pitch <= invert ? (pitch - 1) : (pitch + 1);
 				end
 				 
 			end
 
 			3: begin // Y
 				if(rY) begin
-				 xv0 <= (alpha * xv0 + beta * zv0) >> 10;
-				 xv1 <= (alpha * xv1 + beta * zv1) >> 10;
-				 xv2 <= (alpha * xv2 + beta * zv2) >> 10;
-				 xv3 <= (alpha * xv3 + beta * zv3) >> 10;
-				 xv4 <= (alpha * xv4 + beta * zv4) >> 10;
-				 xv5 <= (alpha * xv5 + beta * zv5) >> 10;
-				 xv6 <= (alpha * xv6 + beta * zv6) >> 10;
-				 xv7 <= (alpha * xv7 + beta * zv7) >> 10;
-				 xv8 <= (alpha * xv8 + beta * zv8) >> 10;
-				 xv9 <= (alpha * xv9 + beta * zv9) >> 10;
-				 xv10 <= (alpha * xv10 + beta * xv10) >> 10;
-				 xv11 <= (alpha * xv11 + beta * xv11) >> 10;
+				 xv0 <= (alpha * xv0 + beta * zv0) >> shifter;
+				 xv1 <= (alpha * xv1 + beta * zv1) >> shifter;
+				 xv2 <= (alpha * xv2 + beta * zv2) >> shifter;
+				 xv3 <= (alpha * xv3 + beta * zv3) >> shifter;
+				 xv4 <= (alpha * xv4 + beta * zv4) >> shifter;
+				 xv5 <= (alpha * xv5 + beta * zv5) >> shifter;
+				 xv6 <= (alpha * xv6 + beta * zv6) >> shifter;
+				 xv7 <= (alpha * xv7 + beta * zv7) >> shifter;
+				 xv8 <= (alpha * xv8 + beta * zv8) >> shifter;
+				 xv9 <= (alpha * xv9 + beta * zv9) >> shifter;
+				 xv10 <= (alpha * xv10 + beta * xv10) >> shifter;
+				 xv11 <= (alpha * xv11 + beta * xv11) >> shifter;
 
-				 zv0 <= (0 - beta * xv0 + alpha * zv0) >> 10;
-				 zv1 <= (0 - beta * xv1 + alpha * zv1) >> 10;
-				 zv2 <= (0 - beta * xv2 + alpha * zv2) >> 10;
-				 zv3 <= (0 - beta * xv3 + alpha * zv3) >> 10;
-				 zv4 <= (0 - beta * xv4 + alpha * zv4) >> 10;
-				 zv5 <= (0 - beta * xv5 + alpha * zv5) >> 10;
-				 zv6 <= (0 - beta * xv6 + alpha * zv6) >> 10;
-				 zv7 <= (0 - beta * xv7 + alpha * zv7) >> 10;
-				 zv8 <= (0 - beta * xv8 + alpha * zv8) >> 10;
-				 zv9 <= (0 - beta * xv9 + alpha * zv9) >> 10;
-				 zv10 <= (0 - beta * xv10 + alpha * zv10) >> 10;
-				 zv11 <= (0 - beta * xv11 + alpha * zv11) >> 10;
+				 zv0 <= (0 - beta * xv0 + alpha * zv0) >> shifter;
+				 zv1 <= (0 - beta * xv1 + alpha * zv1) >> shifter;
+				 zv2 <= (0 - beta * xv2 + alpha * zv2) >> shifter;
+				 zv3 <= (0 - beta * xv3 + alpha * zv3) >> shifter;
+				 zv4 <= (0 - beta * xv4 + alpha * zv4) >> shifter;
+				 zv5 <= (0 - beta * xv5 + alpha * zv5) >> shifter;
+				 zv6 <= (0 - beta * xv6 + alpha * zv6) >> shifter;
+				 zv7 <= (0 - beta * xv7 + alpha * zv7) >> shifter;
+				 zv8 <= (0 - beta * xv8 + alpha * zv8) >> shifter;
+				 zv9 <= (0 - beta * xv9 + alpha * zv9) >> shifter;
+				 zv10 <= (0 - beta * xv10 + alpha * zv10) >> shifter;
+				 zv11 <= (0 - beta * xv11 + alpha * zv11) >> shifter;
+				 
+				 roll <= invert ? (roll - 1) : (roll + 1);
 				end
 			end
 
 			4: begin // Z
 				if(rZ) begin
-				 xv0 <= (alpha * xv0 - beta * yv0) >> 10;
-				 xv1 <= (alpha * xv1 - beta * yv1) >> 10;
-				 xv2 <= (alpha * xv2 - beta * yv2) >> 10;
-				 xv3 <= (alpha * xv3 - beta * yv3) >> 10;
-				 xv4 <= (alpha * xv4 - beta * yv4) >> 10;
-				 xv5 <= (alpha * xv5 - beta * yv5) >> 10;
-				 xv6 <= (alpha * xv6 - beta * yv6) >> 10;
-				 xv7 <= (alpha * xv7 - beta * yv7) >> 10;
-				 xv8 <= (alpha * xv8 - beta * yv8) >> 10;
-				 xv9 <= (alpha * xv9 - beta * yv9) >> 10;
-				 xv10 <= (alpha * xv10 - beta * yv10) >> 10;
-				 xv11 <= (alpha * xv11 - beta * yv11) >> 10;
+				 xv0 <= (alpha * xv0 - beta * yv0) >> shifter;
+				 xv1 <= (alpha * xv1 - beta * yv1) >> shifter;
+				 xv2 <= (alpha * xv2 - beta * yv2) >> shifter;
+				 xv3 <= (alpha * xv3 - beta * yv3) >> shifter;
+				 xv4 <= (alpha * xv4 - beta * yv4) >> shifter;
+				 xv5 <= (alpha * xv5 - beta * yv5) >> shifter;
+				 xv6 <= (alpha * xv6 - beta * yv6) >> shifter;
+				 xv7 <= (alpha * xv7 - beta * yv7) >> shifter;
+				 xv8 <= (alpha * xv8 - beta * yv8) >> shifter;
+				 xv9 <= (alpha * xv9 - beta * yv9) >> shifter;
+				 xv10 <= (alpha * xv10 - beta * yv10) >> shifter;
+				 xv11 <= (alpha * xv11 - beta * yv11) >> shifter;
 
-				 yv0 <= (beta * xv0 + alpha * yv0) >> 10;
-				 yv1 <= (beta * xv1 + alpha * yv1) >> 10;
-				 yv2 <= (beta * xv2 + alpha * yv2) >> 10;
-				 yv3 <= (beta * xv3 + alpha * yv3) >> 10;
-				 yv4 <= (beta * xv4 + alpha * yv4) >> 10;
-				 yv5 <= (beta * xv5 + alpha * yv5) >> 10;
-				 yv6 <= (beta * xv6 + alpha * yv6) >> 10;
-				 yv7 <= (beta * xv7 + alpha * yv7) >> 10;
-				 yv8 <= (beta * xv8 + alpha * yv8) >> 10;
-				 yv9 <= (beta * xv9 + alpha * yv9) >> 10;
-				 yv10 <= (beta * xv10 + alpha * yv10) >> 10;
-				 yv11 <= (beta * xv11 + alpha * yv11) >> 10;
+				 yv0 <= (beta * xv0 + alpha * yv0) >> shifter;
+				 yv1 <= (beta * xv1 + alpha * yv1) >> shifter;
+				 yv2 <= (beta * xv2 + alpha * yv2) >> shifter;
+				 yv3 <= (beta * xv3 + alpha * yv3) >> shifter;
+				 yv4 <= (beta * xv4 + alpha * yv4) >> shifter;
+				 yv5 <= (beta * xv5 + alpha * yv5) >> shifter;
+				 yv6 <= (beta * xv6 + alpha * yv6) >> shifter;
+				 yv7 <= (beta * xv7 + alpha * yv7) >> shifter;
+				 yv8 <= (beta * xv8 + alpha * yv8) >> shifter;
+				 yv9 <= (beta * xv9 + alpha * yv9) >> shifter;
+				 yv10 <= (beta * xv10 + alpha * yv10) >> shifter;
+				 yv11 <= (beta * xv11 + alpha * yv11) >> shifter;
+				 
+				 yaw <= invert ? (yaw - 1) : (yaw + 1);
 				 end
 			end
 			5: begin
@@ -1175,12 +1266,18 @@ module incrementalRotation(
 
 endmodule
 
-module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, done);
+module connectVerticies(go, clk, rst, startXR, startYR, endXR, endYR, outX, outY, done, shapeChanged);
 
-	input clk, rst, go;
+	input clk, rst, go, shapeChanged;
 	
-	input [9:0] startX, startY, endX, endY;
-	reg [10:0] x0, y0, x1, y1;
+	input [8:0] startXR, startYR, endXR, endYR; // a signed 
+	wire [8:0] startX, startY, endX, endY;
+	assign startX = startXR + 150;
+	assign startY = startYR + 150;
+	assign endX = endXR + 150;
+	assign endY = endYR + 150;
+	
+	reg signed [9:0] x0, y0, x1, y1; // a signed
 	
 	output reg [10:0] outX, outY;
 	output reg done;
@@ -1233,7 +1330,7 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 	end
 	
 	always@(posedge clk) begin
-		if(~rst) begin
+		if(~rst || shapeChanged) begin
 			y <= A;
 			isDone <= 0;
 			outX <= 0;
@@ -1282,9 +1379,9 @@ module connectVerticies(go, clk, rst, startX, startY, endX, endY, outX, outY, do
 	end
 endmodule
 
-module blackOut(clock, resetn, enabled, maxX, maxY, outX, outY, done);
+module blackOut(clock, resetn, enabled, maxX, maxY, outX, outY, done, shapeChanged);
 
-        input clock, resetn, enabled;
+        input clock, resetn, enabled, shapeChanged;
         input [8:0] maxX;
         input [8:0] maxY;
         output reg [8:0] outX;
@@ -1305,7 +1402,7 @@ module blackOut(clock, resetn, enabled, maxX, maxY, outX, outY, done);
 
         always@(posedge clock) begin
 
-                if(~resetn) begin
+                if(~resetn || shapeChanged) begin
                         y = 0;
                         done <= 0;
 

@@ -9,21 +9,21 @@ z2
 cModel Technology
 dC:/Users/zha13148/verilog-gpu/src
 vblackOut
-Z0 !s110 1701508131
+Z0 !s110 1701571795
 !i10b 1
-!s100 _L4D^I5MR3R6;2_I5FR6f0
-Ik?MA9eKkj:]aXY0KG3Y5D3
+!s100 ARh<cV8GglCzEd5dQ6kco1
+IjTX92GhNH4X7bI7H3kdR01
 Z1 VDg1SIo80bB@j0V0VzS_@n1
 Z2 dC:/Users/henvill1/verilog-gpu/src
-Z3 w1701508111
+Z3 w1701571791
 Z4 8gpu.v
 Z5 Fgpu.v
-L0 871
+L0 1363
 Z6 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z7 !s108 1701508131.000000
+Z7 !s108 1701571795.000000
 Z8 !s107 gpu.v|
 Z9 !s90 -reportprogress|300|gpu.v|
 !i113 1
@@ -32,14 +32,14 @@ nblack@out
 vconnectVerticies
 R0
 !i10b 1
-!s100 Si_^H9Y6L6NE@Xm;a];aR2
-IbOH5GCdAHf[AnOdK=O4B<2
+!s100 Y[J^CT`L=7^<mB9NH@dU21
+IS@j2NlNJdnC:a4A]LzmMU1
 R1
 R2
 R3
 R4
 R5
-L0 764
+L0 1256
 R6
 r1
 !s85 0
@@ -51,16 +51,37 @@ R9
 R10
 nconnect@verticies
 vdecodeAndMap
+!s110 1701571713
+!i10b 1
+!s100 V56TaS=`FY`W^zSJEe8Kz1
+I2MhZS0J<4[K[J=12PjaL_0
+R1
+R2
+w1701571709
+R4
+R5
+L0 86
+R6
+r1
+!s85 0
+31
+!s108 1701571712.000000
+R8
+R9
+!i113 1
+R10
+ndecode@and@map
+vdetectShapeDelta
 R0
 !i10b 1
-!s100 8:DbCE5Q`UJ4FLS26Z?zB3
-IbV]XNM]i39>UQNZ3_K<LE3
+!s100 BjJkAhl0Ybd?WCCS]<08i3
+IX278bNYXgTIHgf`zbcZ?^0
 R1
 R2
 R3
 R4
 R5
-L0 68
+L0 931
 R6
 r1
 !s85 0
@@ -70,12 +91,12 @@ R8
 R9
 !i113 1
 R10
-ndecode@and@map
+ndetect@shape@delta
 vgpu
 R0
 !i10b 1
-!s100 ^Wz4Y[B1?Sg2gVNKoRTII0
-IGcR^YNX=4n@a?3aX_G;<j2
+!s100 07K[CHzH::dK]6aQO<WlG3
+Ib5oYFJa5gaWJ_Af@`3?F73
 R1
 R2
 R3
@@ -91,17 +112,37 @@ R8
 R9
 !i113 1
 R10
-vincrementalRotation
+vhex_decoder
 R0
 !i10b 1
-!s100 fRi5YiLXQhTQFfPW:MR0Y1
-IKgiOSOK^]kzhBBJ:zh]In0
+!s100 [O:`0_zR:dhj0S1KiI1oa1
+IXYJBA2W1>[cNdC>J:72oN2
 R1
 R2
 R3
 R4
 R5
-L0 487
+L0 71
+R6
+r1
+!s85 0
+31
+R7
+R8
+R9
+!i113 1
+R10
+vincrementalRotation
+R0
+!i10b 1
+!s100 dX_RLdY8ENIhf7ACWLE]C1
+IaGV::Zgj`SiXRR>U4E><n1
+R1
+R2
+R3
+R4
+R5
+L0 967
 R6
 r1
 !s85 0

@@ -1,8 +1,9 @@
-Warning (10268): Verilog HDL information at gpu.v(141): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 141
-Warning (10268): Verilog HDL information at gpu.v(260): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 260
-Info (10281): Verilog HDL Declaration information at gpu.v(137): object "y" differs only in case from object "Y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 137
-Info (10281): Verilog HDL Declaration information at gpu.v(970): object "y" differs only in case from object "Y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 970
-Warning (10268): Verilog HDL information at gpu.v(1208): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1208
-Info (10281): Verilog HDL Declaration information at gpu.v(1190): object "Y" differs only in case from object "y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1190
-Warning (10268): Verilog HDL information at gpu.v(1306): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1306
-Info (10281): Verilog HDL Declaration information at gpu.v(1294): object "y" differs only in case from object "Y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1294
+Warning (10268): Verilog HDL information at gpu.v(175): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 175
+Warning (10268): Verilog HDL information at gpu.v(294): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 294
+Info (10281): Verilog HDL Declaration information at gpu.v(165): object "y" differs only in case from object "Y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 165
+Info (10281): Verilog HDL Declaration information at gpu.v(949): object "y" differs only in case from object "Y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 949
+Info (10281): Verilog HDL Declaration information at gpu.v(1049): object "y" differs only in case from object "Y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1049
+Warning (10268): Verilog HDL information at gpu.v(1305): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1305
+Info (10281): Verilog HDL Declaration information at gpu.v(1287): object "Y" differs only in case from object "y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1287
+Warning (10268): Verilog HDL information at gpu.v(1403): always construct contains both blocking and non-blocking assignments File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1403
+Info (10281): Verilog HDL Declaration information at gpu.v(1391): object "y" differs only in case from object "Y" in the same scope File: C:/Users/henvill1/verilog-gpu/src/gpu.v Line: 1391

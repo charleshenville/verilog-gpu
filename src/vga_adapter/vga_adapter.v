@@ -79,7 +79,7 @@ module vga_adapter(
 			resetn,
 			clock,
 			colour,
-			x, y, plot,
+			x, y, plot, DS,
 			/* Signals for the DAC to drive the monitor. */
 			VGA_R,
 			VGA_G,
@@ -121,6 +121,7 @@ module vga_adapter(
 	/*****************************************************************************/
 	input resetn;
 	input clock;
+	input DS;
 	
 	/* The colour input can be either 1 bit or 3*BITS_PER_COLOUR_CHANNEL bits wide, depending on
 	 * the setting of the MONOCHROME parameter.
@@ -163,7 +164,13 @@ module vga_adapter(
 	 * the state of the plot signal.
 	 */
 	
+	// Changed 
+	wire [((MONOCHROME == "TRUE") ? (0) : (BITS_PER_COLOUR_CHANNEL*3-1)):0] to_ctrl_colour_a;
+	wire [((MONOCHROME == "TRUE") ? (0) : (BITS_PER_COLOUR_CHANNEL*3-1)):0] to_ctrl_colour_b;
 	wire [((MONOCHROME == "TRUE") ? (0) : (BITS_PER_COLOUR_CHANNEL*3-1)):0] to_ctrl_colour;
+	
+	assign to_ctrl_colour = memoryA_memoryB ? to_ctrl_colour_b : to_ctrl_colour_a;
+	
 	/* Pixel colour read by the VGA controller */
 	
 	wire [((RESOLUTION == "320x240") ? (16) : (14)):0] user_to_video_memory_addr;
@@ -199,8 +206,25 @@ module vga_adapter(
 	/* Allow the user to plot a pixel if and only if the (X,Y) coordinates supplied are in a valid range. */
 	
 	/* Create video memory. */
-	altsyncram	VideoMemory (
-				.wren_a (writeEn),
+	
+	reg memoryA_memoryB; // frame
+	initial memoryA_memoryB = 1;
+	
+	reg LAST_DS;
+	//reg LAST_VS;
+	
+	always@(posedge clock) begin
+		LAST_DS <= DS;
+		//LAST_VS <= VGA_VS;
+		if(DS == 1 && LAST_DS == 0) memoryA_memoryB<=~memoryA_memoryB;
+	end
+	
+	wire WREN_A, WREN_B;
+	assign WREN_A = writeEn & memoryA_memoryB;
+	assign WREN_B = writeEn & ~memoryA_memoryB;
+	
+	altsyncram	VideoMemoryA (
+				.wren_a (WREN_A),
 				.wren_b (gnd),
 				.clock0 (clock), // write clock
 				.clock1 (clock_25), // read clock
@@ -209,25 +233,56 @@ module vga_adapter(
 				.address_a (user_to_video_memory_addr),
 				.address_b (controller_to_video_memory_addr),
 				.data_a (colour), // data in
-				.q_b (to_ctrl_colour)	// data out
+				.q_b (to_ctrl_colour_a)	// data out
 				);
 	defparam
-		VideoMemory.WIDTH_A = ((MONOCHROME == "FALSE") ? (BITS_PER_COLOUR_CHANNEL*3) : 1),
-		VideoMemory.WIDTH_B = ((MONOCHROME == "FALSE") ? (BITS_PER_COLOUR_CHANNEL*3) : 1),
-		VideoMemory.INTENDED_DEVICE_FAMILY = "Cyclone II",
-		VideoMemory.OPERATION_MODE = "DUAL_PORT",
-		VideoMemory.WIDTHAD_A = ((RESOLUTION == "320x240") ? (17) : (15)),
-		VideoMemory.NUMWORDS_A = ((RESOLUTION == "320x240") ? (76800) : (19200)),
-		VideoMemory.WIDTHAD_B = ((RESOLUTION == "320x240") ? (17) : (15)),
-		VideoMemory.NUMWORDS_B = ((RESOLUTION == "320x240") ? (76800) : (19200)),
-		VideoMemory.OUTDATA_REG_B = "CLOCK1",
-		VideoMemory.ADDRESS_REG_B = "CLOCK1",
-		VideoMemory.CLOCK_ENABLE_INPUT_A = "BYPASS",
-		VideoMemory.CLOCK_ENABLE_INPUT_B = "BYPASS",
-		VideoMemory.CLOCK_ENABLE_OUTPUT_B = "BYPASS",
-		VideoMemory.POWER_UP_UNINITIALIZED = "FALSE",
-		VideoMemory.INIT_FILE = BACKGROUND_IMAGE;
-		
+		VideoMemoryA.WIDTH_A = ((MONOCHROME == "FALSE") ? (BITS_PER_COLOUR_CHANNEL*3) : 1),
+		VideoMemoryA.WIDTH_B = ((MONOCHROME == "FALSE") ? (BITS_PER_COLOUR_CHANNEL*3) : 1),
+		VideoMemoryA.INTENDED_DEVICE_FAMILY = "Cyclone II",
+		VideoMemoryA.OPERATION_MODE = "DUAL_PORT",
+		VideoMemoryA.WIDTHAD_A = ((RESOLUTION == "320x240") ? (17) : (15)),
+		VideoMemoryA.NUMWORDS_A = ((RESOLUTION == "320x240") ? (76800) : (19200)),
+		VideoMemoryA.WIDTHAD_B = ((RESOLUTION == "320x240") ? (17) : (15)),
+		VideoMemoryA.NUMWORDS_B = ((RESOLUTION == "320x240") ? (76800) : (19200)),
+		VideoMemoryA.OUTDATA_REG_B = "CLOCK1",
+		VideoMemoryA.ADDRESS_REG_B = "CLOCK1",
+		VideoMemoryA.CLOCK_ENABLE_INPUT_A = "BYPASS",
+		VideoMemoryA.CLOCK_ENABLE_INPUT_B = "BYPASS",
+		VideoMemoryA.CLOCK_ENABLE_OUTPUT_B = "BYPASS",
+		VideoMemoryA.POWER_UP_UNINITIALIZED = "FALSE",
+		VideoMemoryA.INIT_FILE = BACKGROUND_IMAGE;
+	
+	//
+	altsyncram	VideoMemoryB (
+				.wren_a (WREN_B),
+				.wren_b (gnd),
+				.clock0 (clock), // write clock
+				.clock1 (clock_25), // read clock
+				.clocken0 (vcc), // write enable clock
+				.clocken1 (vcc), // read enable clock				
+				.address_a (user_to_video_memory_addr),
+				.address_b (controller_to_video_memory_addr),
+				.data_a (colour), // data in
+				.q_b (to_ctrl_colour_b)	// data out
+				);
+	defparam
+		VideoMemoryB.WIDTH_A = ((MONOCHROME == "FALSE") ? (BITS_PER_COLOUR_CHANNEL*3) : 1),
+		VideoMemoryB.WIDTH_B = ((MONOCHROME == "FALSE") ? (BITS_PER_COLOUR_CHANNEL*3) : 1),
+		VideoMemoryB.INTENDED_DEVICE_FAMILY = "Cyclone II",
+		VideoMemoryB.OPERATION_MODE = "DUAL_PORT",
+		VideoMemoryB.WIDTHAD_A = ((RESOLUTION == "320x240") ? (17) : (15)),
+		VideoMemoryB.NUMWORDS_A = ((RESOLUTION == "320x240") ? (76800) : (19200)),
+		VideoMemoryB.WIDTHAD_B = ((RESOLUTION == "320x240") ? (17) : (15)),
+		VideoMemoryB.NUMWORDS_B = ((RESOLUTION == "320x240") ? (76800) : (19200)),
+		VideoMemoryB.OUTDATA_REG_B = "CLOCK1",
+		VideoMemoryB.ADDRESS_REG_B = "CLOCK1",
+		VideoMemoryB.CLOCK_ENABLE_INPUT_A = "BYPASS",
+		VideoMemoryB.CLOCK_ENABLE_INPUT_B = "BYPASS",
+		VideoMemoryB.CLOCK_ENABLE_OUTPUT_B = "BYPASS",
+		VideoMemoryB.POWER_UP_UNINITIALIZED = "FALSE",
+		VideoMemoryB.INIT_FILE = BACKGROUND_IMAGE;
+	//
+	
 	vga_pll mypll(clock, clock_25);
 	/* This module generates a clock with half the frequency of the input clock.
 	 * For the VGA adapter to operate correctly the clock signal 'clock' must be
